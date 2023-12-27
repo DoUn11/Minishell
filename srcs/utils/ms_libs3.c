@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main.c                                          :+:      :+:    :+:   */
+/*   ms_libs3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 02:36:03 by doukim           ###   ########.fr       */
+/*   Created: 2023/12/27 18:50:39 by doukim            #+#    #+#             */
+/*   Updated: 2023/12/28 03:15:40 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int main(int argc, char *argv[], char *envp[])
+char	*ms_strjoin_f(char *s1, char *s2)
 {
-	t_minishell ms_info;
+	char *ret;
+	
+	ret = ms_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (ret);
+}
 
-	if (argc > 1)
-	{
-		printf("Minishell has 0 args");
-		return (0);
-	}
-	printf("%s\n", WELCOME_MSG);
-	ms_getenv(&ms_info, envp);
-	ms_loop(&ms_info);
-	exit(0);
+int	ms_iswhitespace(int c)
+{
+	if (9 <= c && c <= 13 || c == 32)
+		return (1);
+	return (0);
 }

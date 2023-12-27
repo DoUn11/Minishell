@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main.c                                          :+:      :+:    :+:   */
+/*   ms_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 02:36:03 by doukim           ###   ########.fr       */
+/*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
+/*   Updated: 2023/12/27 16:36:50 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_minishell.h"
+#include "ms_error.h"
 
-int main(int argc, char *argv[], char *envp[])
+void	ms_perror()
 {
-	t_minishell ms_info;
+	perror("minishell");
+}
 
-	if (argc > 1)
-	{
-		printf("Minishell has 0 args");
-		return (0);
-	}
-	printf("%s\n", WELCOME_MSG);
-	ms_getenv(&ms_info, envp);
-	ms_loop(&ms_info);
-	exit(0);
+void	ms_strerror(int errnum)
+{
+	errno = 0;
+	if (errnum == 0)
+		perror("minishell: quote/dquote does not closed");
 }

@@ -6,7 +6,13 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:00 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/26 21:45:01 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/27 01:54:22 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MS_PARSER_H
+# define MS_PARSER_H
+
+# include "ms_minishell.h"
+
+#endif

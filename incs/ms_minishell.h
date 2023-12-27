@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/26 21:58:55 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/27 22:35:40 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,43 @@
 # include <errno.h>
 # include <termios.h>
 # include <term.h>
+
+typedef struct s_list
+{
+	void			*data;
+	struct s_list	*next;
+}	t_list;
+
+typedef struct s_bintree
+{
+	void				*data;
+	struct s_bintree	*left;
+	struct s_bintree	*right;
+}	t_bintree;
+
+typedef struct s_quoteinfo
+{
+	int		squote;
+	int		dquote;
+}	t_quoteinfo;
+
+typedef struct s_minishell
+{
+	char	**envp;
+	char	*readline;
+	char	*converted;
+	t_list	*tokenlist;
+	int		errnum;
+}	t_minishell;
+
 # include "ms_lexer.h"
 # include "ms_parser.h"
 # include "ms_builtins.h"
 # include "ms_executor.h"
 # include "ms_utils.h"
 # include "ms_splash_screen.h"
+# include "ms_error.h"
 
-typedef struct s_minishell
-{
-	
-}	t_minishell;
+void	ms_loop(t_minishell *info);
 
 #endif

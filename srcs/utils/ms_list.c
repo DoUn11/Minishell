@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main.c                                          :+:      :+:    :+:   */
+/*   ms_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 02:36:03 by doukim           ###   ########.fr       */
+/*   Created: 2023/12/28 02:54:42 by doukim            #+#    #+#             */
+/*   Updated: 2023/12/28 04:32:40 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int main(int argc, char *argv[], char *envp[])
+t_list	*ms_lstnewnode(void *data)
 {
-	t_minishell ms_info;
+	t_list *new;
 
-	if (argc > 1)
+	new = (t_list *)malloc(sizeof(t_list));
+	new->data = data;
+	new->next = NULL;
+	return (new);
+}
+
+void	ms_lstadd(t_list **lst, void *data)
+{
+	t_list *tmp;
+
+	if (!*lst)
 	{
-		printf("Minishell has 0 args");
-		return (0);
+		*lst = ms_lstnewnode(data);
+		return ;
 	}
-	printf("%s\n", WELCOME_MSG);
-	ms_getenv(&ms_info, envp);
-	ms_loop(&ms_info);
-	exit(0);
+	tmp = *lst;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = ms_lstnewnode(data);
 }

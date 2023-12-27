@@ -6,7 +6,12 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/26 21:44:54 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/27 01:54:11 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MS_EXECUTOR_H
+# define MS_EXECUTOR_H
+
+# include "ms_minishell.h"
+#endif

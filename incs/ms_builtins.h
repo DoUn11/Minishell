@@ -6,7 +6,13 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/26 21:44:50 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/27 01:54:05 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MS_BUILTINS_H
+# define MS_BUILTINS_H
+
+# include "ms_minishell.h"
+
+#endif

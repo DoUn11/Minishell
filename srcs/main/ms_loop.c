@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main.c                                          :+:      :+:    :+:   */
+/*   ms_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 02:36:03 by doukim           ###   ########.fr       */
+/*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
+/*   Updated: 2023/12/27 22:34:40 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int main(int argc, char *argv[], char *envp[])
+void	ms_loop(t_minishell *info)
 {
-	t_minishell ms_info;
-
-	if (argc > 1)
+	while (1)
 	{
-		printf("Minishell has 0 args");
-		return (0);
+		info->readline = readline(READLINE_MSG);
+		info->tokenlist = ms_lexer(info);
+		if (info->tokenlist == NULL)
+			continue;
+		//info->list = ms_parser(info->table);
+		//ms_executor(info->list);
 	}
-	printf("%s\n", WELCOME_MSG);
-	ms_getenv(&ms_info, envp);
-	ms_loop(&ms_info);
-	exit(0);
 }

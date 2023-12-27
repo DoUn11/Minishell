@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main.c                                          :+:      :+:    :+:   */
+/*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 02:36:03 by doukim           ###   ########.fr       */
+/*   Created: 2023/12/27 01:07:08 by doukim            #+#    #+#             */
+/*   Updated: 2023/12/27 23:07:29 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_minishell.h"
+#include "ms_utils.h"
 
-int main(int argc, char *argv[], char *envp[])
+void	ms_getenv(t_minishell *info, char **envp)
 {
-	t_minishell ms_info;
+	int		size_envp;
+	int		idx;
 
-	if (argc > 1)
+	size_envp = 0;
+	while (envp[size_envp])
+		size_envp++;
+	info->envp = (char **)malloc(sizeof(char *) * (size_envp + 1));
+	if (!info->envp)
+		return ;
+	idx = 0;
+	while (idx < size_envp)
 	{
-		printf("Minishell has 0 args");
-		return (0);
+		info->envp[idx] = ms_strdup(envp[idx]);
+		idx++;
 	}
-	printf("%s\n", WELCOME_MSG);
-	ms_getenv(&ms_info, envp);
-	ms_loop(&ms_info);
-	exit(0);
+	info->envp[idx] = NULL;
 }
