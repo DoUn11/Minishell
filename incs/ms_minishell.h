@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 22:35:40 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/28 19:24:34 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ typedef struct s_quoteinfo
 
 typedef struct s_minishell
 {
-	char	**envp;
-	char	*readline;
-	char	*converted;
-	t_list	*tokenlist;
-	int		errnum;
+	char		*arg;
+	char		**envp;
+	char		*readline;
+	char		*converted;
+	t_list		*tokenlist;
+	t_bintree	*ast;
+	int			errnum;
 }	t_minishell;
 
 # include "ms_lexer.h"

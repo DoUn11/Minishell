@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parser.h                                        :+:      :+:    :+:   */
+/*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 21:45:00 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 19:24:44 by doukim           ###   ########.fr       */
+/*   Created: 2023/12/28 07:21:34 by doukim            #+#    #+#             */
+/*   Updated: 2023/12/29 01:43:40 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_PARSER_H
-# define MS_PARSER_H
+#include "ms_parser.h"
 
-# include "ms_minishell.h"
-
-typedef enum e_syntax
+t_bintree	*ms_parser(t_minishell *info)
 {
-	NUL,
-	WORD,
-	PIPE,
-	REDIRECTION,
-	ROOT,
-	LIST,
-	PIPELINE,
-	AND_IF,
-	OR_IF,
-	COMMAND,
-	SIMPLE_COMMAND,
-	REDIRECTION_LIST,
-	SIMPLE_COMMAND_ELEMENT,
-	SUBSHELL,
-}	t_syntax;
-
-#endif
+	//ms_syntax();
+	//ms_ast_builder();
+	
+}

@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:08 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 04:33:00 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/28 06:35:31 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ char	*ms_strjoin_f(char *s1, char *s2);
 t_list	*ms_lstnewnode(void *data);
 void	ms_lstadd(t_list **lst, void *data);
 int		ms_iswhitespace(int c);
+char	*ms_itoa(int n);
 
 #endif

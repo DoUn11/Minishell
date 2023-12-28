@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_get_env_var.c                                   :+:      :+:    :+:   */
+/*   ms_getvar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:21:06 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 03:35:13 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/29 01:46:52 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_lexer.h"
 
-char	*ms_getparams(char c)
+char	*ms_getparams(t_minishell *info, char c)
 {
 	if (c == '0')
-		return (ms_strdup("minishell"));
+		return (ms_strdup(info->arg));
+	if (c == '#')
+		return (ms_strdup("0"));
 	if (c == '?')
-		return (NULL);
-	return (NULL);
+		return (ms_strdup(""));
+	return (ms_strdup(""));
 }
 char	*ms_getvarname(char *str, int *idx)
 {
@@ -33,7 +35,7 @@ char	*ms_getvarname(char *str, int *idx)
 		while (ms_isalpha(str[len]) || ms_isdigit(str[len]) || str[len] == '_')
 			len++;
 	}
-	else if (ms_strchr("1234567890!@#$*", str[len]))
+	else if (ms_strchr("1234567890!@#$*?-", str[len]))
 		len++;
 	if (len == 0)
 		return (NULL);
@@ -45,8 +47,8 @@ char	*ms_getvardata(t_minishell *info, char *var)
 {
 	int		idx;
 	
-	if (ms_strlen(var) == 1 && !ms_strchr("1234567890!@#$*_", var[0]))
-		return (ms_getparams(var[0]));
+	if (ms_strlen(var) == 2 && ms_strchr("1234567890!@#$*?-", var[0]))
+		return (ms_getparams(info, var[0]));
 	else
 	{
 		idx = 0;

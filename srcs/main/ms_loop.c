@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 22:34:40 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/29 01:43:19 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ms_loop(t_minishell *info)
 		info->tokenlist = ms_lexer(info);
 		if (info->tokenlist == NULL)
 			continue;
-		//info->list = ms_parser(info->table);
+		//info->ast = ms_parser(info);
 		//ms_executor(info->list);
 	}
 }

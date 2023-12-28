@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 16:36:50 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/29 01:36:44 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,9 @@ void	ms_strerror(int errnum)
 	errno = 0;
 	if (errnum == 0)
 		perror("minishell: quote/dquote does not closed");
+}
+
+void	ms_lexererr(int errnum)
+{
+	
 }
