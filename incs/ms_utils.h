@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:08 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 06:35:31 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/29 01:52:25 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "ms_minishell.h"
 
-void	ms_getenv(t_minishell *info, char *envp[]);
+void	ms_getenv(t_minishell *info, char **envp);
 size_t	ms_strlen(const char *s);
 char	*ms_strdup(const char *s1);
 char	*ms_strndup(const char *s1, int n);

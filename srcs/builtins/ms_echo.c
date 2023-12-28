@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:14:03 by chanspar          #+#    #+#             */
-/*   Updated: 2023/12/29 01:44:35 by chanspar         ###   ########.fr       */
+/*   Updated: 2023/12/29 01:50:46 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	echo_print(char **tk_list)
 {
 	int	flag;
 
-	flag = check_echo_option();
-	if (flag == 0)
-		echo_no_option();
-	else if (flag == 1)
-		echo_option();    //echo -n or  -n -n -n -n -n -n or -nnnnnnnnnnnn 만약에 -n nnnnhi는nnnnnhi출력
+	//flag = //check_echo_option();
+	//if (flag == 0)
+		//echo_no_option();
+	//else if (flag == 1)
+		//echo_option();    //echo -n or  -n -n -n -n -n -n or -nnnnnnnnnnnn 만약에 -n nnnnhi는nnnnnhi출력
 }
 
