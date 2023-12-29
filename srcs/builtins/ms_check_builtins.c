@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:18:21 by chanspar          #+#    #+#             */
-/*   Updated: 2023/12/29 01:50:05 by doukim           ###   ########.fr       */
+/*   Updated: 2023/12/29 11:46:37 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ms_check_builtin(char **tk_list)
 {
 	char	*builtin_cmd;
 
-	
+	builtin_cmd = tk_list[0];
 	if (!ms_strncmp(builtin_cmd, "echo", 5))
-		;
+		return (ms_echo_print(tk_list));
 	else if (!ms_strncmp(builtin_cmd, "cd", 3))
 		;
 	else if (!ms_strncmp(builtin_cmd, "pwd", 4))
