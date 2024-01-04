@@ -6,11 +6,36 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:14:03 by chanspar          #+#    #+#             */
-/*   Updated: 2023/12/29 12:33:39 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/04 22:15:23 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_builtins.h"
+
+void	ms_echo_builtin(char **tk_list)
+{
+	int	option_exist;
+	int	idx;
+
+	if (tk_list[1] == 0)
+		return (write(1, "\n", 1));
+	option_exist = ms_check_echo_option(tk_list[1]);
+	if (option_exist == 0)
+		ms_echo_no_option(tk_list);
+	else if (option_exist == 1)
+	{
+		idx = 2;
+		if (tk_list[idx] == 0)
+			return ;
+		while (ms_check_echo_option(tk_list[idx]) == 1)
+		{
+			idx++;
+			if (tk_list[idx] == 0)
+				return ;
+		}
+		ms_echo_option(tk_list, idx);
+	}
+}
 
 int	ms_check_echo_option(char *str)
 {
@@ -53,24 +78,4 @@ void	ms_echo_option(char **tk_list, int idx)
 			wirte(1, " ", 1);
 		idx++;
 	}
-}
-
-int	ms_echo_print(char **tk_list)
-{
-	int	flag;
-	int	idx;
-
-	if (tk_list[1] == 0)
-		return (write(1, "\n", 1));
-	flag = ms_check_echo_option(tk_list[1]);
-	if (flag == 0)
-		ms_echo_no_option(tk_list);
-	else if (flag == 1)
-	{
-		idx = 2;
-		while (ms_check_echo_option(tk_list[idx]) == 1)
-			idx++;
-		ms_echo_option(tk_list, idx);
-	}
-	return (1);
 }
