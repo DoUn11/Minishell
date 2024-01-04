@@ -6,39 +6,11 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:30:05 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/05 02:27:44 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/05 02:55:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_builtins.h"
-
-char	*ms_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*tmp;
-	size_t	i;
-	size_t	s_len;
-
-	i = 0;
-	s_len = ms_strlen(s);
-	if (s == 0)
-		return (0);
-	if (start >= s_len)
-		return (ms_strdup(""));
-	if (start + len > s_len)
-		tmp = (char *)malloc(sizeof(char) * (s_len - start + 1));
-	else
-		tmp = (char *)malloc(sizeof(char) * (len + 1));
-	if (tmp == 0)
-		return (0);
-	while (i < len && *(s + start) != 0 && s[i] != 0)
-	{
-		*(tmp + i) = *(s + start);
-		i++;
-		start++;
-	}
-	*(tmp + i) = 0;
-	return (tmp);
-}
 
 char	**ms_envp_copy(char **envp)
 {
