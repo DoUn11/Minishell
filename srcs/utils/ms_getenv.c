@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:07:08 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/29 02:39:02 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/05 06:29:00 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,24 @@ void	ms_getenv(t_minishell *info, char **envp)
 		idx++;
 	}
 	info->envp[idx] = NULL;
+}
+
+void	ms_getenv_copy(t_minishell *info, char **envp)
+{
+	int		size_envp;
+	int		idx;
+
+	size_envp = 0;
+	while (envp[size_envp])
+		size_envp++;
+	info->export = (char **)malloc(sizeof(char *) * (size_envp + 1));
+	if (!info->export)
+		return ;
+	idx = 0;
+	while (idx < size_envp)
+	{
+		info->export[idx] = ms_strdup(envp[idx]);
+		idx++;
+	}
+	info->export[idx] = NULL;
 }

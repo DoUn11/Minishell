@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:08 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/29 01:52:25 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/05 06:27:54 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ms_minishell.h"
 
 void	ms_getenv(t_minishell *info, char **envp);
+void	ms_getenv_copy(t_minishell *info, char **envp);
 size_t	ms_strlen(const char *s);
 char	*ms_strdup(const char *s1);
 char	*ms_strndup(const char *s1, int n);
@@ -31,5 +32,6 @@ t_list	*ms_lstnewnode(void *data);
 void	ms_lstadd(t_list **lst, void *data);
 int		ms_iswhitespace(int c);
 char	*ms_itoa(int n);
+char	*ms_substr(char const *s, unsigned int start, size_t len);
 
 #endif
