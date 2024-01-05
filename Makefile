@@ -6,7 +6,7 @@
 #    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2023/12/29 01:58:16 by doukim           ###   ########.fr        #
+#    Updated: 2024/01/05 07:33:13 by doukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,10 @@ SRCDIR	:= ./srcs/
 OBJDIR	:= ./objs/
 INCDIR	:= ./incs/
 
-SRCS	:= $(wildcard $(SRCDIR)*/*.c)
+SRCS	:= $(wildcard $(SRCDIR)lexer/*.c)\
+	$(wildcard $(SRCDIR)main/*.c)\
+	$(wildcard $(SRCDIR)utils/*.c)\
+	$(wildcard $(SRCDIR)error/*.c)
 INCS	:= $(wildcard $(INCDIR)*.h)
 OBJS	:= $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 
@@ -36,8 +39,8 @@ $(OBJDIR) :
 $(OBJDIR)%.o : $(SRCDIR)main/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)builtins/%.c $(INCS)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+#$(OBJDIR)%.o : $(SRCDIR)builtins/%.c $(INCS)
+#	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJDIR)%.o : $(SRCDIR)error/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
@@ -51,8 +54,8 @@ $(OBJDIR)%.o : $(SRCDIR)lexer/%.c $(INCS)
 $(OBJDIR)%.o : $(SRCDIR)utils/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)parser/%.c $(INCS)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+#$(OBJDIR)%.o : $(SRCDIR)parser/%.c $(INCS)
+#	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
 	rm -rf $(OBJDIR)

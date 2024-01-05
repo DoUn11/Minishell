@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:00 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 19:24:44 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/05 11:24:04 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,34 @@
 
 # include "ms_minishell.h"
 
-typedef enum e_syntax
+# define T_NULL 0
+# define T_WORD 1
+# define T_PIPE 2
+# define T_REDIRECT 3
+# define T_L 1
+# define T_R 2
+# define T_LL 3
+# define T_RR 4
+
+typedef struct s_tokenlist
 {
-	NUL,
-	WORD,
-	PIPE,
-	REDIRECTION,
-	ROOT,
-	LIST,
-	PIPELINE,
-	AND_IF,
-	OR_IF,
-	COMMAND,
-	SIMPLE_COMMAND,
-	REDIRECTION_LIST,
-	SIMPLE_COMMAND_ELEMENT,
-	SUBSHELL,
-}	t_syntax;
+	t_token				*token;
+	struct s_tokenlist	*next;
+}	t_tokenlist;
+
+typedef struct s_redirect
+{
+	int		type;
+	char	*str;
+}	t_redirect;
+
+typedef struct s_cmd
+{
+	char	**cmdargs;
+	t_list	*redirects;
+}	t_cmd;
+
+t_list	*ms_cmdlist(t_minishell *info);
+int		ms_syntax(t_minishell *info);
 
 #endif
