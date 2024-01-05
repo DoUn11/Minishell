@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:36:38 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 03:34:50 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/05 11:57:13 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char	*ms_convert(t_minishell *info, char *str)
 			var = ms_getvarname(str, &idx);
 			if (var == NULL)
 			{
-				ret = ms_strjoin_f(ret, ms_strdup("$"));
+				if (str[idx] != '\"' && str[idx] != '\'')
+					ret = ms_strjoin_f(ret, ms_strdup("$"));
 				start = idx;
 				continue;
 			}
