@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:20:36 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/05 05:58:23 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:59:11 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,76 @@
 void	ms_export_builtin(t_minishell *info, char **tk_list)
 {
 	if (tk_list[1] == 0)
-		ms_export_no_arg(info->envp);
+		ms_export_no_arg(info);
 	else
-		ms_export_arg();
+		ms_export_arg(info, tk_list);
 }
 
-void	ms_export_no_arg(char **envp)
+void	ms_export_no_arg(t_minishell *info)
 {
 	int		i;
-	int		env_size;
-	char	**envp_copy;
+	int		export_size;
+	char	*env_name;
+	char	*env_value;
 
 	i = 0;
-	envp_copy = ms_envp_copy(envp);
-	env_size = ms_get_listsize(envp_copy);
-	sort_envp(envp_copy, env_size);
-	while (i < env_size)
+	export_size = ms_get_listsize(info->export);
+	sort_envp(info->export, export_size);
+	while (i < export_size)
 	{
-
-		i++;
-	}
-}
-
-void	ms_export_arg(char **tk_list)
-{
-	int	i;
-	int	tk_size;
-
-	i = 1;
-	tk_size = ms_get_listsize(tk_list);
-	while (i < tk_size)
-	{
-		ms_check_key(tk_list[i]);
-		i++;
-	}
-}
-
-void	ms_check_key(char *str)
-{
-	int	i;
-
-	if (str[0] != '-' && ms_isalpha(str[0]) != 1)
-	{
-		exit_status = 1;
-		ms_keyerr_print();
-		return ;
-	}
-	i = 1;
-	while (str[i] && str[i] != '=')
-	{
-		if (ms_isalpha(str[i]) != 1 && ms_isdigit(str[i]) != 1)
+		env_name = ms_get_envname(info->export[i]);
+		env_value = ms_get_env_value(env_name, info->export);
+		write(1, "declare -x ", 11);
+		write(1, env_name, ms_strlen(env_name));
+		if (ms_strchr(info->export[i], '=') != 0)
 		{
-			exit_status = 1;
-			ms_keyerr_print();
-			return ;
+			write(1, "=\"", 2);
+			write(1, env_value, ms_strlen(env_value));
+			write(1, "\"", 1);
 		}
+		write(1, "\n", 1);
+		free(env_name);
+		free(env_value);
 		i++;
 	}
-	if (str[i] == 0)
-	{
-		//이미 존재시 그대로 놔두기 
-		ms_export_add();
-	}
-	else if (str[i] == '=')
-	{
-		ms_env_add();
-		ms_export_add();
-	}
+}
 
+void	sort_export(char **export, int export_size)
+{
+	int	i;
+	int	n;
+
+	while (export_size--)
+	{
+		i = 0;
+		while (export[i] && export[i + 1])
+		{
+			if (ms_strlen(export[i]) < ms_strlen(export[i + 1]))
+				n = ms_strlen(export[i]);
+			else
+				n = ms_strlen(export[i + 1]);
+			if (ms_strncmp(export[i], export[i + 1], n + 1) > 0)
+				swap_string(&export[i], &export[i + 1]);
+			i++;
+		}
+	}
+}
+
+void	swap_string(char **str1, char **str2)
+{
+	char	*temp;
+
+	temp = *str1;
+	*str1 = *str2;
+	*str2 = temp;
+}
+
+void	ms_keyerr_print(char *str)
+{
+	exit_status = 1;
+	write(2, "minishell: ", 11);
+	write(2, "export: `", 9);
+	write(2, str, ms_strlen(str));
+	write(2, "': not a valid identifier\n", 26);
 }
 

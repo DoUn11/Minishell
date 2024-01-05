@@ -6,33 +6,33 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:30:05 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/05 03:35:11 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/05 11:24:22 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_builtins.h"
 
-char	**ms_envp_copy(char **envp)
-{
-	char	**envp_copy;
-	int		envp_size;
-	int		i;
+// char	**ms_envp_copy(char **envp)
+// {
+// 	char	**envp_copy;
+// 	int		envp_size;
+// 	int		i;
 
-	i = 0;
-	envp_size = ms_get_listsize(envp);
-	envp_copy = malloc(sizeof(char *) * (envp_size + 1));
-	if (!envp_copy)
-		malloc_err();
-	while (i < envp_size)
-	{
-		envp_copy[i] = ms_strdup(envp[i]);
-		if (!envp_copy[i])
-			malloc_err();
-		i++;
-	}
-	envp_copy[i] = 0;
-	return (envp_copy);
-}
+// 	i = 0;
+// 	envp_size = ms_get_listsize(envp);
+// 	envp_copy = malloc(sizeof(char *) * (envp_size + 1));
+// 	if (!envp_copy)
+// 		malloc_err();
+// 	while (i < envp_size)
+// 	{
+// 		envp_copy[i] = ms_strdup(envp[i]);
+// 		if (!envp_copy[i])
+// 			malloc_err();
+// 		i++;
+// 	}
+// 	envp_copy[i] = 0;
+// 	return (envp_copy);
+// }
 
 int	ms_get_listsize(char **tk_list)
 {
@@ -92,4 +92,17 @@ char	*ms_get_env_value(char *env_name, char **envp)
 	}
 	free(re_name);
 	return (0);
+}
+
+void	ms_double_malloc_free(char **tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp[i] != 0)
+	{
+		free(tmp[i]);
+		i++;
+	}
+	free(tmp);
 }
