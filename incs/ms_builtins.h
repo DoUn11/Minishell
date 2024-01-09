@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/08 19:24:30 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:25:58 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "ms_minishell.h"
 # include "limits.h"
-
-unsigned char	g_exit_status;
 
 void	ms_check_builtin(t_minishell *info, char **tk_list);
 
