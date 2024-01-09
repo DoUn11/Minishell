@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:00 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 11:24:04 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:54:35 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,20 @@ typedef struct s_redirect
 	char	*str;
 }	t_redirect;
 
+typedef struct s_redirectlist
+{
+	t_redirect				*redirect;
+	struct s_redirectlist	*next;
+}	t_redirectlist;
+
 typedef struct s_cmd
 {
 	char	**cmdargs;
 	t_list	*redirects;
 }	t_cmd;
 
-t_list	*ms_cmdlist(t_minishell *info);
+int		ms_parser(t_minishell *info);
+int		ms_cmdlist(t_minishell *info);
 int		ms_syntax(t_minishell *info);
 
 #endif

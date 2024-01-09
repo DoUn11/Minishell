@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 08:22:31 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 04:40:58 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 14:14:30 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ t_list	*ms_tokenize(t_list *splited)
 	t_list	*ret;
 	t_list	*tmp;
 	
+	ret = NULL;
 	tmp = splited;
 	while (tmp)
 	{
-		//printf("%s\n", tmp->data);
 		ms_lstadd(&ret, ms_get_token(tmp->data));
 		printf("[token] : {%s, %d}\n", ms_get_token(tmp->data)->str, ms_get_token(tmp->data)->type);
 		tmp = tmp->next;

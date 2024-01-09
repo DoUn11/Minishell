@@ -6,7 +6,7 @@
 #    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/05 07:33:13 by doukim           ###   ########.fr        #
+#    Updated: 2024/01/09 13:33:21 by doukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ INCDIR	:= ./incs/
 SRCS	:= $(wildcard $(SRCDIR)lexer/*.c)\
 	$(wildcard $(SRCDIR)main/*.c)\
 	$(wildcard $(SRCDIR)utils/*.c)\
-	$(wildcard $(SRCDIR)error/*.c)
+	$(wildcard $(SRCDIR)error/*.c)\
+	$(wildcard $(SRCDIR)parser/*.c)
 INCS	:= $(wildcard $(INCDIR)*.h)
 OBJS	:= $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 
@@ -54,8 +55,8 @@ $(OBJDIR)%.o : $(SRCDIR)lexer/%.c $(INCS)
 $(OBJDIR)%.o : $(SRCDIR)utils/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-#$(OBJDIR)%.o : $(SRCDIR)parser/%.c $(INCS)
-#	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(OBJDIR)%.o : $(SRCDIR)parser/%.c $(INCS)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
 	rm -rf $(OBJDIR)

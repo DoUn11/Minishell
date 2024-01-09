@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:55 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 08:39:57 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:53:27 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define T_PIPE 2
 # define T_REDIRECT 3
 
-int		*ms_lexer(t_minishell *info);
+int		ms_lexer(t_minishell *info);
 t_list	*ms_split(char *str);
 char	*ms_convert(t_minishell *info, char *str);
 void	ms_toggle_quote(t_quoteinfo *quotes, char c);

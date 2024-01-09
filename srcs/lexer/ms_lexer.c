@@ -6,13 +6,13 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:36:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 08:16:06 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:52:47 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_lexer.h"
 
-int	*ms_lexer(t_minishell *info)
+int	ms_lexer(t_minishell *info)
 {
 	t_list		*splited;
 	
