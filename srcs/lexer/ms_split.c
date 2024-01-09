@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:42:13 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 10:00:21 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 01:42:30 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ t_list	*ms_split(char *str)
 				{
 					quote = str[idx];
 					word = ms_strjoin_f(word, ms_strndup(str, idx));
-					str += idx + 1;
-					idx = 0;
+					str += idx + (word[0] != '\0');
+					idx = (word[0] == '\0');
 					while (str[idx] != quote)
 						idx++;
 					word = ms_strjoin_f(word, ms_strndup(str, idx));
@@ -74,6 +74,7 @@ t_list	*ms_split(char *str)
 				idx++;
 			}
 			word = ms_strjoin_f(word, ms_strndup(str, idx));
+			
 			ms_lstadd(&ret, word);
 		}
 		else

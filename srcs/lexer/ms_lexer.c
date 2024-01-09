@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:36:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 13:52:47 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 22:37:48 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	ms_lexer(t_minishell *info)
 	t_list *tmp = splited;
 	while (tmp)
 	{
-		printf("{%s}\n", tmp->data);
+		char	*strtmp = ms_strdup(tmp->data);
+		printf("{%s}\n", strtmp);
 		tmp = tmp->next;
 	}
 	info->tokenlist = ms_tokenize(splited);
