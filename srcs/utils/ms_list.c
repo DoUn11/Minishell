@@ -6,11 +6,11 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 02:54:42 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 04:32:40 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 07:45:57 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_minishell.h"
+#include "ms_utils.h"
 
 t_list	*ms_lstnewnode(void *data)
 {

@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:48:17 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 14:40:00 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 07:46:46 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	ms_cmdlist(t_minishell *info)
 		cmdline->cmdargs[idx] = NULL;
 		tmp = tmp->next;
 		ms_lstadd(&info->cmdlist, cmdline);
+		info->cmdcnt++;
 	}
 	return (1);
 }

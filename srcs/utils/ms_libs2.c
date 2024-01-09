@@ -6,11 +6,11 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:12:11 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/28 00:39:10 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 07:45:49 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_minishell.h"
+#include "ms_utils.h"
 
 int	ms_isalpha(int c)
 {

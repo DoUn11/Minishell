@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 08:32:07 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 07:56:57 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct s_minishell
 	char		*converted;
 	t_list		*tokenlist;
 	t_list		*cmdlist;
+	int			**fds;
+	int			**pipes;
+	int			cmdcnt;
 	int			errnum;
 }	t_minishell;
 

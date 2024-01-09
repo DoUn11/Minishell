@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:08 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 06:27:54 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 07:44:30 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ void	ms_lstadd(t_list **lst, void *data);
 int		ms_iswhitespace(int c);
 char	*ms_itoa(int n);
 char	*ms_substr(char const *s, unsigned int start, size_t len);
+
+void	*ms_memset(void *b, int c, size_t len);
 
 #endif

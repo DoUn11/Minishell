@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+         #
+#    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/09 18:05:17 by chanspar         ###   ########.fr        #
+#    Updated: 2024/01/09 22:18:42 by doukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
-CC		:= cc
+CC		:= cc -fsanitize=address
 INCLUDE	:= -I./incs/
 #CFLAGS	:= -Wall -Wextra -Werror
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_libs3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:50:39 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 03:34:43 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 07:45:37 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_minishell.h"
+#include "ms_utils.h"
 
 char	*ms_strjoin_f(char *s1, char *s2)
 {
