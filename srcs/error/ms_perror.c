@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/29 01:36:44 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/06 18:19:41 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,10 @@ void	ms_strerror(int errnum)
 void	ms_lexererr(int errnum)
 {
 	
+}
+
+void	malloc_err(void)
+{
+	write(2, "malloc error!!\n", ms_strlen("malloc error!!\n"));
+	exit(1);
 }

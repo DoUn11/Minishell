@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 08:39:05 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 15:01:26 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # include "ms_splash_screen.h"
 # include "ms_error.h"
 # include "ms_utils.h"
+
+unsigned char	g_exit_status;
 
 void	ms_loop(t_minishell *info);
 

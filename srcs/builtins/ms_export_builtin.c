@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:20:36 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/05 10:59:11 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:20:59 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ms_export_no_arg(t_minishell *info)
 
 	i = 0;
 	export_size = ms_get_listsize(info->export);
-	sort_envp(info->export, export_size);
+	sort_envp(info, export_size);
 	while (i < export_size)
 	{
 		env_name = ms_get_envname(info->export[i]);
@@ -49,7 +49,7 @@ void	ms_export_no_arg(t_minishell *info)
 	}
 }
 
-void	sort_export(char **export, int export_size)
+void	ms_sort_export(t_minishell *info, int export_size)
 {
 	int	i;
 	int	n;
@@ -57,20 +57,20 @@ void	sort_export(char **export, int export_size)
 	while (export_size--)
 	{
 		i = 0;
-		while (export[i] && export[i + 1])
+		while (info->export[i] && info->export[i + 1])
 		{
-			if (ms_strlen(export[i]) < ms_strlen(export[i + 1]))
-				n = ms_strlen(export[i]);
+			if (ms_strlen(info->export[i]) < ms_strlen(info->export[i + 1]))
+				n = ms_strlen(info->export[i]);
 			else
-				n = ms_strlen(export[i + 1]);
-			if (ms_strncmp(export[i], export[i + 1], n + 1) > 0)
-				swap_string(&export[i], &export[i + 1]);
+				n = ms_strlen(info->export[i + 1]);
+			if (ms_strncmp(info->export[i], info->export[i + 1], n + 1) > 0)
+				swap_string(&info->export[i], &info->export[i + 1]);
 			i++;
 		}
 	}
 }
 
-void	swap_string(char **str1, char **str2)
+void	ms_swap_string(char **str1, char **str2)
 {
 	char	*temp;
 
@@ -78,13 +78,3 @@ void	swap_string(char **str1, char **str2)
 	*str1 = *str2;
 	*str2 = temp;
 }
-
-void	ms_keyerr_print(char *str)
-{
-	exit_status = 1;
-	write(2, "minishell: ", 11);
-	write(2, "export: `", 9);
-	write(2, str, ms_strlen(str));
-	write(2, "': not a valid identifier\n", 26);
-}
-
