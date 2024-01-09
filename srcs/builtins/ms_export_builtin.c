@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:20:36 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 17:52:55 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 00:21:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,18 @@ void	ms_swap_string(char **str1, char **str2)
 	temp = *str1;
 	*str1 = *str2;
 	*str2 = temp;
+}
+
+void	ms_export_arg(t_minishell *info, char **tk_list)
+{
+	int	i;
+	int	tk_size;
+
+	i = 1;
+	tk_size = ms_get_listsize(tk_list);
+	while (i < tk_size)
+	{
+		ms_check_key(info, tk_list[i]);
+		i++;
+	}
 }

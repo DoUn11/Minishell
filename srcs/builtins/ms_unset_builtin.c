@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:21:01 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/08 17:42:55 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:45:06 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,4 @@ void	ms_delete_envp(t_minishell *info, char *str)
 		ms_memory_reduction(&info->export, str);
 	if (ms_check_exist_key(info->envp, str) == 1)
 		ms_memory_reduction(&info->envp, str);
-}
-
-void	ms_keyerr_unset_print(char *str)
-{
-	g_exit_status = 1;
-	write(2, "minishell: ", 11);
-	write(2, "unset: `", 8);
-	write(2, str, ms_strlen(str));
-	write(2, "': not a valid identifier\n", 26);
 }

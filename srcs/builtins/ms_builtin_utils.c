@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:30:05 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/06 22:20:08 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:25:42 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ void	ms_double_malloc_free(char ***tmp)
 	int	i;
 
 	i = 0;
-	while (*tmp[i] != 0)
+	while ((*tmp)[i] != 0)
 	{
-		free(*tmp[i]);
+		free((*tmp)[i]);
 		i++;
 	}
 	if (*tmp != 0)
 		free(*tmp);
+	*tmp = 0;
 }

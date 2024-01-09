@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:14:03 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 17:50:24 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 23:13:29 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	ms_echo_builtin(char **tk_list)
 	int	idx;
 
 	if (tk_list[1] == 0)
+	{
 		write(1, "\n", 1);
+		return ;
+	}
 	option_exist = ms_check_echo_option(tk_list[1]);
 	if (option_exist == 0)
 		ms_echo_no_option(tk_list);
@@ -56,11 +59,15 @@ int	ms_check_echo_option(char *str)
 void	ms_echo_no_option(char **tk_list)
 {
 	int	idx;
+	int	list_size;
 
 	idx = 1;
-	while (tk_list[idx])
+	list_size = ms_get_listsize(tk_list);
+	while (idx < list_size)
 	{
 		write(1, tk_list[idx], ms_strlen(tk_list[idx]));
+		if (idx < list_size - 1)
+			write(1, " ", 1);
 		idx++;
 	}
 	write(1, "\n", 1);

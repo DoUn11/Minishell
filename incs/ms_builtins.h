@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 18:01:11 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 00:21:18 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ void	ms_swap_string(char **str1, char **str2);
 
 void	ms_export_arg(t_minishell *info, char **tk_list);
 void	ms_check_key(t_minishell *info, char *str);
-void	ms_keyerr_print(char *str);
-void	ms_check_exist(t_minishell *info, char *str);
+void	ms_keyerr_export_print(char *str);
+int		ms_check_exist(t_minishell *info, char *str);
+int		ms_check_envexist(t_minishell *info, char *str);
 void	ms_add_key_value(char ***envp, char *str);
+void	ms_change_key_value(t_minishell *info, char *str, int pos, char *key);
+void	ms_check_key_utils(t_minishell *info, char *str, int i);
 
 //unset
 void	ms_unset_builtin(t_minishell *info, char **tk_list);
@@ -57,7 +60,6 @@ void	ms_keyerr_unset_print(char *str);
 int		ms_check_exist_key(char **envp, char *str);
 void	ms_memory_reduction(char ***envp, char *str);
 void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int (*i)[2]);
-void	ms_replace_envp(char ***envp, char ***re_envp);
 
 //env
 void	ms_env_builtin(t_minishell *info, char **tk_list);
