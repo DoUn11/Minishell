@@ -53,3 +53,4 @@ dkms.conf
 checker_Mac
 .vscode
 .DS_Store
+minishell
