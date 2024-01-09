@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:54:47 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 18:03:45 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 01:30:40 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ unsigned char	ms_atol(char *str, int *flag)
 	return (num * sign);
 }
 
-void	ms_check_numeric(int num, int sign, int *flag)
+void	ms_check_numeric(unsigned long long num, int sign, int *flag)
 {
 	if (num > (unsigned long long)LONG_MAX && sign == 1)
 		*flag = 1;
