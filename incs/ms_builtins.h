@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 00:21:18 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 01:30:55 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ms_exit_builtin(t_minishell *info, char **tk_list);
 void	ms_no_numeric_print(char *str);
 void	ms_many_arg_print(void);
 
-void	ms_check_numeric(int num, int sign, int *flag);
+void	ms_check_numeric(unsigned long long num, int sign, int *flag);
 void	ms_space_sign_skip(char **str, int *sign);
 
 //utils
