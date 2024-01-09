@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 15:25:58 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:01:11 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ms_minishell.h"
 # include "limits.h"
 
-void	ms_check_builtin(t_minishell *info, char **tk_list);
+int		ms_check_builtin(t_minishell *info, t_list *arg_list);
 
 //echo
 void	ms_echo_builtin(char **tk_list);
@@ -56,7 +56,7 @@ void	ms_keyerr_unset_print(char *str);
 
 int		ms_check_exist_key(char **envp, char *str);
 void	ms_memory_reduction(char ***envp, char *str);
-void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int *idx[2]);
+void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int (*i)[2]);
 void	ms_replace_envp(char ***envp, char ***re_envp);
 
 //env

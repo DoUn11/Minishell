@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2023/12/27 01:54:11 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 17:44:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,7 @@
 # define MS_EXECUTOR_H
 
 # include "ms_minishell.h"
+
+void	ms_executor(t_minishell *info);
+
 #endif

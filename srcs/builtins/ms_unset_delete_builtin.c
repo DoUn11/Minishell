@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:30:54 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/06 21:31:56 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:00:32 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,24 @@ void	ms_memory_reduction(char ***envp, char *str)
 	ms_replace_envp(envp, &re_envp);
 }
 
-void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int *idx[2])
+void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int (*i)[2])
 {
 	char	*envp_name;
 
-	envp_name = ms_get_envname(*envp[*idx[0]]);
+	envp_name = ms_get_envname(*envp[*i[0]]);
 	if (ms_strncmp(envp_name, s, ms_strlen(s) + 1) == 0)
 	{
 		free(envp_name);
-		*idx[0]++;
+		(*i)[0]++;
 	}
 	else
 	{
 		free(envp_name);
-		*re_envp[*idx[1]] = ms_strdup(*envp[*idx[0]]);
-		if (!*re_envp[*idx[1]])
+		*re_envp[(*i)[1]] = ms_strdup(*envp[(*i)[0]]);
+		if (!*re_envp[(*i)[1]])
 			malloc_err();
-		*idx[0]++;
-		*idx[1]++;
+		(*i)[0]++;
+		(*i)[1]++;
 	}
 }
 

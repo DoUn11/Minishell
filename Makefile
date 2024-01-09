@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
+#    By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/09 13:33:21 by doukim           ###   ########.fr        #
+#    Updated: 2024/01/09 18:05:17 by chanspar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRCS	:= $(wildcard $(SRCDIR)lexer/*.c)\
 	$(wildcard $(SRCDIR)main/*.c)\
 	$(wildcard $(SRCDIR)utils/*.c)\
 	$(wildcard $(SRCDIR)error/*.c)\
-	$(wildcard $(SRCDIR)parser/*.c)
+	$(wildcard $(SRCDIR)parser/*.c)\
+	$(wildcard $(SRCDIR)builtins/*.c)\
+	$(wildcard $(SRCDIR)executor/*.c)
 INCS	:= $(wildcard $(INCDIR)*.h)
 OBJS	:= $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 
@@ -40,13 +42,13 @@ $(OBJDIR) :
 $(OBJDIR)%.o : $(SRCDIR)main/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-#$(OBJDIR)%.o : $(SRCDIR)builtins/%.c $(INCS)
-#	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(OBJDIR)%.o : $(SRCDIR)builtins/%.c $(INCS)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJDIR)%.o : $(SRCDIR)error/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)excutor/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)executor/%.c $(INCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJDIR)%.o : $(SRCDIR)lexer/%.c $(INCS)

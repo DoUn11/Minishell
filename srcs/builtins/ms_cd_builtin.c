@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:19:42 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/06 22:24:04 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:49:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ms_cd_no_arg(t_minishell *info, char buffer[PATH_MAX])
 	{
 		write(2, "minishell: ", 11);
 		write(2, "cd: ", 4);
-		wirte(2, "HOME not set\n", 13);
+		write(2, "HOME not set\n", 13);
 		g_exit_status = 1;
 	}
 	else if (chdir(path) == -1)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_echo.c                                          :+:      :+:    :+:   */
+/*   ms_echo_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:14:03 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/04 22:15:23 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:50:24 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ms_echo_builtin(char **tk_list)
 	int	idx;
 
 	if (tk_list[1] == 0)
-		return (write(1, "\n", 1));
+		write(1, "\n", 1);
 	option_exist = ms_check_echo_option(tk_list[1]);
 	if (option_exist == 0)
 		ms_echo_no_option(tk_list);
@@ -75,7 +75,7 @@ void	ms_echo_option(char **tk_list, int idx)
 	{
 		write(1, tk_list[idx], ms_strlen(tk_list[idx]));
 		if (idx < list_size - 1)
-			wirte(1, " ", 1);
+			write(1, " ", 1);
 		idx++;
 	}
 }

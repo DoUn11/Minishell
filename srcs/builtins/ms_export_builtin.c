@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:20:36 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/08 19:20:59 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:52:55 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ms_export_no_arg(t_minishell *info)
 
 	i = 0;
 	export_size = ms_get_listsize(info->export);
-	sort_envp(info, export_size);
+	ms_sort_export(info, export_size);
 	while (i < export_size)
 	{
 		env_name = ms_get_envname(info->export[i]);
@@ -64,7 +64,7 @@ void	ms_sort_export(t_minishell *info, int export_size)
 			else
 				n = ms_strlen(info->export[i + 1]);
 			if (ms_strncmp(info->export[i], info->export[i + 1], n + 1) > 0)
-				swap_string(&info->export[i], &info->export[i + 1]);
+				ms_swap_string(&info->export[i], &info->export[i + 1]);
 			i++;
 		}
 	}

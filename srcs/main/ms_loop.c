@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 13:40:57 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/09 17:39:47 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	ms_loop(t_minishell *info)
 			continue;
 		if (ms_parser(info))
 			continue;
-		//ms_executor(info->list);
+		ms_executor(info);
 	}
 }

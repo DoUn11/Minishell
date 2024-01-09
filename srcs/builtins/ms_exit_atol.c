@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:54:47 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/08 19:19:35 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:03:45 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	ms_check_numeric(int num, int sign, int *flag)
 void	ms_space_sign_skip(char **str, int *sign)
 {
 	while ((**str >= 9 && **str <= 13) || **str == 32)
-		*str++;
+		(*str)++;
 	if (**str == '+' || **str == '-')
 	{
 		if (**str == '-')
 			*sign = -1;
-		*str++;
+		(*str)++;
 	}
 }
