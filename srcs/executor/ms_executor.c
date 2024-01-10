@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/10 08:14:25 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 10:03:16 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,59 @@ int	ms_get_fds(t_minishell *info)
 	}
 	return (0);
 }
+int	ms_get_redir_fd(t_redirect *redirect)
+{
+	int	ret;
+	
+	if (redirect->type == 1)
+		ret = open(redirect->str, O_RDONLY, 0644);
+	if (redirect->type == 2)
+		ret = open(redirect->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (redirect->type == 3)
+		ret = ms_heredoc();
+	if (redirect->type == 4)
+		ret = open(redirect->str, O_RDWR | O_CREAT | O_APPEND, 0644);
+	return (ret);
+}
 
 int	ms_executor(t_minishell *info)
 {
-	t_list	*tmp;
-	int		idx;
+	t_list			*tmp;
+	t_redirectlist	*redirtmp;
+	int				idx;
+	int				idx2;
+	int				pid;
 	
 	if (ms_get_pipe(info) == -1)
 		return (1);
 	if (ms_get_fds(info) == -1)
 		return (1);
 	tmp = info->cmdlist;
-	
+	idx2 = 0;
+	while (tmp)
+	{
+		pid = fork();
+		if (pid == 0) //child
+		{
+			redirtmp = ((t_cmd *)tmp->data)->redirects;
+			idx = 0;
+			while (redirtmp)
+			{
+				info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(redirtmp->redirect);
+				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
+					return (-1);
+				idx++;
+				redirtmp = redirtmp->next;
+			}
+			
+			dup2(info->fds[idx2][0], STDIN_FILENO);
+			dup2(info->fds[idx2][1], STDOUT_FILENO);
+			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0]);
+			execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp);
+		}
+		else //parent
+		{
+			
+		}
+	}
 }
