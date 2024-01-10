@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 09:12:08 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 10:05:22 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ typedef struct s_cmd
 
 int		ms_executor(t_minishell *info);
 
+int		ms_make_temp(t_minishell *info);
+int		ms_temp_utils(t_minishell *info);
 #endif

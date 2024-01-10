@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 15:27:11 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:24:26 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <errno.h>
 # include <termios.h>
 # include <term.h>
+# include <fcntl.h>
 # include "ms_structs.h"
 # include "ms_lexer.h"
 # include "ms_parser.h"
