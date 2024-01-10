@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 07:56:57 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/10 08:23:12 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_minishell
 	char		**export;
 	char		*readline;
 	char		*converted;
+	char		*temp_file;
 	t_list		*tokenlist;
 	t_list		*cmdlist;
 	int			**fds;
