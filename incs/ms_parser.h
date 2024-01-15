@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:00 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 13:54:35 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 12:42:16 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,6 @@
 # define T_R 2
 # define T_LL 3
 # define T_RR 4
-
-typedef struct s_tokenlist
-{
-	t_token				*token;
-	struct s_tokenlist	*next;
-}	t_tokenlist;
-
-typedef struct s_redirect
-{
-	int		type;
-	char	*str;
-}	t_redirect;
-
-typedef struct s_redirectlist
-{
-	t_redirect				*redirect;
-	struct s_redirectlist	*next;
-}	t_redirectlist;
-
-typedef struct s_cmd
-{
-	char	**cmdargs;
-	t_list	*redirects;
-}	t_cmd;
 
 int		ms_parser(t_minishell *info);
 int		ms_cmdlist(t_minishell *info);

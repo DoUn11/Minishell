@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 08:23:12 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:43:01 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,30 @@ typedef struct s_list
 	void			*data;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_cmd
+{
+	char	**cmdargs;
+	t_list	*redirects;
+}	t_cmd;
+
+typedef struct s_tokenlist
+{
+	t_token				*token;
+	struct s_tokenlist	*next;
+}	t_tokenlist;
+
+typedef struct s_redirect
+{
+	int		type;
+	char	*str;
+}	t_redirect;
+
+typedef struct s_redirectlist
+{
+	t_redirect				*redirect;
+	struct s_redirectlist	*next;
+}	t_redirectlist;
 
 typedef struct s_quoteinfo
 {
