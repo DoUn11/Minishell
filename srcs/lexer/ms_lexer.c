@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:36:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 22:37:48 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 23:34:06 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	ms_lexer(t_minishell *info)
 {
 	t_list		*splited;
-	
+	t_list		*tmp;
+	char		*strtmp;
+
 	info->converted = ms_convert(info, info->readline);
 	if (info->converted == NULL)
 		return (1);
@@ -24,10 +26,10 @@ int	ms_lexer(t_minishell *info)
 	if (splited == NULL)
 		return (1);
 	printf("[splited]\n");
-	t_list *tmp = splited;
+	tmp = splited;
 	while (tmp)
 	{
-		char	*strtmp = ms_strdup(tmp->data);
+		strtmp = ms_strdup(tmp->data);
 		printf("{%s}\n", strtmp);
 		tmp = tmp->next;
 	}

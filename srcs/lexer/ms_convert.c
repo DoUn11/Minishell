@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_convert.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:36:38 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/05 11:57:13 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 23:32:45 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,52 @@ int	ms_chk_quotes_closed(t_minishell *info, t_quoteinfo q, char *ret)
 	return (0);
 }
 
+char	*ms_convert_util(t_minishell *info, char *str, int *idx, int *start)
+{
+	char	*ret;
+	char	*var;
+
+	ret = ms_strndup(str + *start, *idx - *start);
+	(*idx)++;
+	var = ms_getvarname(str, idx);
+	if (var == NULL)
+	{
+		if (str[*idx] != '\"' && str[*idx] != '\'')
+			ret = ms_strjoin_f(ret, ms_strdup("$"));
+		*start = *idx;
+		return (ret);
+	}
+	*start = *idx + 1;
+	ret = ms_strjoin_f(ret, ms_getvardata(info, var));
+	return (ret);
+}
+
+char	*ms_convert(t_minishell *info, char *str)
+{
+	t_quoteinfo	quotes;
+	int			idx;
+	int			start;
+	char		*ret;
+
+	quotes.squote = 0;
+	quotes.dquote = 0;
+	idx = 0;
+	start = 0;
+	ret = ms_strdup("");
+	while (str[idx])
+	{
+		ms_toggle_quote(&quotes, str[idx]);
+		if (str[idx] == '$' && !quotes.squote)
+			ret = ms_strjoin_f(ret, ms_convert_util(info, str, &idx, start));
+		idx++;
+	}
+	if (ms_chk_quotes_closed(info, quotes, ret))
+		return (NULL);
+	ret = ms_strjoin_f(ret, ms_strndup(str + start, idx - start));
+	return (ret);
+}
+
+/*
 char	*ms_convert(t_minishell *info, char *str)
 {
 	t_quoteinfo	quotes;
@@ -56,7 +102,7 @@ char	*ms_convert(t_minishell *info, char *str)
 				if (str[idx] != '\"' && str[idx] != '\'')
 					ret = ms_strjoin_f(ret, ms_strdup("$"));
 				start = idx;
-				continue;
+				continue ;
 			}
 			start = idx + 1;
 			ret = ms_strjoin_f(ret, ms_getvardata(info, var));
@@ -68,3 +114,4 @@ char	*ms_convert(t_minishell *info, char *str)
 	ret = ms_strjoin_f(ret, ms_strndup(str + start, idx - start));
 	return (ret);
 }
+*/
