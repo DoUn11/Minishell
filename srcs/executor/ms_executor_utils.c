@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 08:17:07 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/10 09:36:14 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/13 14:25:34 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ms_make_temp(t_minishell *info)
 	int		fd;
 	char	*tmp;
 
-	info->temp_file = ms_strdup("/tmp/mytempfile0");
+	info->temp_file = ms_strdup("/tmp/mytempfile_a");
 	if (info->temp_file == 0)
 		return (-1);
 	while (access(info->temp_file, F_OK) == 0)
@@ -26,7 +26,7 @@ int	ms_make_temp(t_minishell *info)
 		if (fd != -1)
 			return (fd);
 		tmp = info->temp_file;
-		info->temp_file = ms_strjoin(tmp, "_0");
+		info->temp_file = ms_strjoin(tmp, "a");
 		free(tmp);
 		if (info->temp_file == 0)
 			return (-1);
@@ -43,9 +43,9 @@ int	ms_temp_utils(t_minishell *info)
 	int	fd;
 
 	i = 1;
-	while (i < 10)
+	while (i < 26)
 	{
-		info->temp_file[ms_strlen(info->temp_file) - 1] = i + '0';
+		info->temp_file[ms_strlen(info->temp_file) - 1] = i + 'a';
 		if (access(info->temp_file, F_OK) == -1)
 		{
 			fd = open(info->temp_file, O_RDWR | O_CREAT, 0644);

@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 08:24:26 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/13 17:19:57 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 # include "ms_utils.h"
 
 unsigned char	g_exit_status;
+
+# define SHELL 0
+# define DEFAULT 1
+# define IGNORE 2
 
 void	ms_loop(t_minishell *info);
 
