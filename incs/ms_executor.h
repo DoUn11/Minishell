@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/15 18:50:01 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 23:29:10 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		ms_make_temp(t_minishell *info);
 int		ms_temp_utils(t_minishell *info);
 
 char	**ms_pathsplit(char const *s, char c);
+
+char	**ms_get_envpath(char **envp);
 char	*ms_get_cmdpath(char *filename, char **envp);
 
 void	ms_save_input_mode(struct termios *original_term);

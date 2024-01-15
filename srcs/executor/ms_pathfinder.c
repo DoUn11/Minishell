@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/15 12:45:56 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 00:09:07 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ char	**ms_get_envpath(char **envp)
 	return (NULL);
 }
 
-char	*ms_get_cmdpath(char *filename, char **envp)
+char	*ms_get_cmdpath(char *filename, char **envpath)
 {
-	char	**envpath;
 	char	*cmdpath;
 	char	*cmdtmp;
 
-	envpath = ms_get_envpath(envp);
 	cmdpath = ms_strjoin_f(ms_strdup("/"), ms_strdup(filename));
 	while (*envpath)
 	{

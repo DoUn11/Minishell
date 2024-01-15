@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:48:17 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 07:46:46 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 23:41:39 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ms_cmdlist(t_minishell *info)
 	t_redirect		*redirect;
 	
 	info->cmdlist = NULL;
+	info->cmdcnt = 0;
 	tmp = info->tokenlist;
 	while (tmp)
 	{
