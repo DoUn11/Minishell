@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 08:22:31 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 01:44:25 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 23:38:42 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static t_token	*ms_get_token(char *str)
 	if (str && (str[0] == '\"' || str[0] == '\''))
 		str++;
 	ret->str = ms_strdup(str);
-	//printf("[[%d]]\n", ms_get_type(str));
 	return (ret);
 }
 
@@ -45,7 +44,7 @@ t_list	*ms_tokenize(t_list *splited)
 	t_list	*ret;
 	t_list	*tmp;
 	t_token	*tokentmp;
-	
+
 	ret = NULL;
 	tmp = splited;
 	while (tmp)

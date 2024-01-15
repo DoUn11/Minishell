@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_getvar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 22:21:06 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 02:48:50 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 23:34:41 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ms_getparams(t_minishell *info, char c)
 		return (ms_itoa(g_exit_status));
 	return (ms_strdup(""));
 }
+
 char	*ms_getvarname(char *str, int *idx)
 {
 	int		len;
@@ -41,12 +42,12 @@ char	*ms_getvarname(char *str, int *idx)
 		return (NULL);
 	*idx += len - 1;
 	return (ms_strjoin_f(ms_strndup(str, len), ms_strdup("=")));
-} 
+}
 
 char	*ms_getvardata(t_minishell *info, char *var)
 {
 	int		idx;
-	
+
 	if (ms_strlen(var) == 2 && ms_strchr("1234567890!@#$*?-", var[0]))
 		return (ms_getparams(info, var[0]));
 	else
