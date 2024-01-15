@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 01:05:20 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 03:35:45 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	ms_executor(t_minishell *info)
 	char			*cmdtmp;
 	char			**envpath;
 	int				idx;
+	int				idx2;
 	int				pid;
 	
 	printf("------ executor ------\n\n");
@@ -124,8 +125,19 @@ int	ms_executor(t_minishell *info)
 			}
 			dup2(info->fds[idx][0], STDIN_FILENO);
 			dup2(info->fds[idx][1], STDOUT_FILENO);
-			close(info->fds[idx][0]);
-			close(info->fds[idx][1]);
+			idx2 = 0;
+			while (idx2 < info->cmdcnt - 1)
+			{
+				if (info->pipes[idx2][0] != info->fds[idx][0])
+					close(info->pipes[idx2][0]);
+				if (info->pipes[idx2][1] != info->fds[idx][1])
+					close(info->pipes[idx2][1]);
+				idx2++;
+			}
+			if (info->fds[idx][0] != 0)
+				close(info->fds[idx][0]);
+			if (info->fds[idx][1] != 1)
+				close(info->fds[idx][1]);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
 			free(envpath);
