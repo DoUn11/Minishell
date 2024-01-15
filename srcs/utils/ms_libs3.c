@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_libs3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:50:39 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 07:45:37 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 22:35:49 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ms_strjoin_f(char *s1, char *s2)
 {
-	char *ret;
-	
+	char	*ret;
+
 	ret = ms_strjoin(s1, s2);
 	free(s1);
 	free(s2);

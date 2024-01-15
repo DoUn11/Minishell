@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 02:54:42 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 07:45:57 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 22:36:12 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ms_lstnewnode(void *data)
 {
-	t_list *new;
+	t_list	*new;
 
 	new = (t_list *)malloc(sizeof(t_list));
 	new->data = data;
@@ -24,7 +24,7 @@ t_list	*ms_lstnewnode(void *data)
 
 void	ms_lstadd(t_list **lst, void *data)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (!*lst)
 	{
