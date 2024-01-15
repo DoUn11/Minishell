@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 00:27:37 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 01:05:20 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	ms_executor(t_minishell *info)
 	char			*cmdtmp;
 	char			**envpath;
 	int				idx;
-	int				idx2;
 	int				pid;
 	
 	printf("------ executor ------\n\n");
@@ -107,7 +106,7 @@ int	ms_executor(t_minishell *info)
 	if (ms_get_fds(info) == -1)
 		return (1);
 	tmp = info->cmdlist;
-	idx2 = 0;
+	idx = 0;
 	while (tmp)
 	{
 		pid = fork();
@@ -116,15 +115,17 @@ int	ms_executor(t_minishell *info)
 			redirtmp = (t_redirectlist *)((t_cmd *)tmp->data)->redirects;
 			while (redirtmp)
 			{
-				if (info->fds[idx2][(redirtmp->redirect->type + 1) % 2] != (redirtmp->redirect->type + 1) % 2)
-					close(info->fds[idx2][(redirtmp->redirect->type + 1) % 2]);
-				info->fds[idx2][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(redirtmp->redirect);
-				if (info->fds[idx2][(redirtmp->redirect->type + 1) % 2] == -1)
+				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] != (redirtmp->redirect->type + 1) % 2)
+					close(info->fds[idx][(redirtmp->redirect->type + 1) % 2]);
+				info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(redirtmp->redirect);
+				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
 					return (-1);
 				redirtmp = redirtmp->next;
 			}
-			dup2(info->fds[idx2][0], STDIN_FILENO);
-			dup2(info->fds[idx2][1], STDOUT_FILENO);
+			dup2(info->fds[idx][0], STDIN_FILENO);
+			dup2(info->fds[idx][1], STDOUT_FILENO);
+			close(info->fds[idx][0]);
+			close(info->fds[idx][1]);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
 			free(envpath);
@@ -133,14 +134,14 @@ int	ms_executor(t_minishell *info)
 		}
 		else //parent
 		{
-			if (idx2 > 0)
+			if (idx > 0)
 			{
-				close(info->pipes[idx2 - 1][0]);
-				close(info->pipes[idx2 - 1][1]);
+				close(info->pipes[idx - 1][0]);
+				close(info->pipes[idx - 1][1]);
 			}
 		}
 		tmp = tmp->next;
-		idx2++;
+		idx++;
 	}
 	ms_wait_child(info);
 }
