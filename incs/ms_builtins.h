@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 01:30:55 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:36:46 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ms_minishell.h"
 # include "limits.h"
 
-int		ms_check_builtin(t_minishell *info, t_list *arg_list);
+int		ms_check_builtin(t_minishell *info, char **cmdargs);
 
 //echo
 void	ms_echo_builtin(char **tk_list);
