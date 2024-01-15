@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_signal_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:20:17 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/15 18:53:28 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/15 22:03:28 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ms_set_input_mode(void)
 		perror("tcgetattr");
 		exit(1);
 	}
-	new_term.c_lflag &= -(ECHOCTL);
+	new_term.c_lflag &= ~(ECHOCTL);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &new_term) == -1)
 	{
 		perror("tcsetattr");
