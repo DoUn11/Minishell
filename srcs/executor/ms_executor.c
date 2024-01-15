@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 03:35:45 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 08:21:45 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,24 @@ int	ms_get_fds(t_minishell *info)
 
 void	ms_wait_child(t_minishell *info)
 {
-	int	count;
-	int	status;
+	int		status;
+	int		signo;
+	int		i;
 
-	count = 0;
-	while (count < info->cmdcnt)
+	i = 0;
+	while (wait(&status) != -1)
 	{
-		if (wait(&status) == -1)
+		if (WIFSIGNALED(status))
 		{
-			//if (pipex_args.here_doc)
-			//	unlink("dummyfile");
-			exit(1);
+			signo = WTERMSIG(status);
+			if (signo == SIGINT && i++ == 0)
+				write(2, "\n", 2);
+			else if (signo == SIGQUIT && i++ == 0)
+				write(2, "Quit: 3\n", 9);
+			g_exit_status = 128 + signo;
 		}
-		count++;
+		else
+			g_exit_status = WEXITSTATUS(status);
 	}
 }
 
@@ -146,6 +151,7 @@ int	ms_executor(t_minishell *info)
 		}
 		else //parent
 		{
+			ms_set_signal(IGNORE, IGNORE);
 			if (idx > 0)
 			{
 				close(info->pipes[idx - 1][0]);
@@ -156,4 +162,5 @@ int	ms_executor(t_minishell *info)
 		idx++;
 	}
 	ms_wait_child(info);
+	ms_set_signal(SHELL, SHELL);
 }

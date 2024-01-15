@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/15 12:43:01 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 08:16:09 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,20 @@ typedef struct s_quoteinfo
 
 typedef struct s_minishell
 {
-	char		*arg;
-	char		**envp;
-	char		**export;
-	char		*readline;
-	char		*converted;
-	char		*temp_file;
-	t_list		*tokenlist;
-	t_list		*cmdlist;
-	int			**fds;
-	int			**pipes;
-	int			cmdcnt;
-	int			errnum;
+	char				*arg;
+	char			**envp;
+	char			**export;
+	char			*readline;
+	char			*converted;
+	char			*temp_file;
+	t_list			*tokenlist;
+	t_list			*cmdlist;
+	int				**fds;
+	int				**pipes;
+	int				cmdcnt;
+	int				errnum;
+	struct termios	old_term;
+	struct termios	new_term;
 }	t_minishell;
 
 #endif

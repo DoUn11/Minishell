@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:20:17 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 02:22:18 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 08:17:41 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,36 @@ void	ms_save_input_mode(struct termios *original_term)
 	}
 }
 
-void	ms_reset_input_mode(struct termios *original_term)
+void	ms_reset_term_mode(t_minishell *info)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, original_term) == -1)
+	struct termios	original_term;
+
+	original_term = info->old_term;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &original_term) == -1)
 	{
 		perror("tcsetattr");
 		exit(1);
 	}
 }
 
-void	ms_set_input_mode(void)
+void	ms_set_input_mode(t_minishell *info)
 {
-	struct termios	new_term;
-
-	if (tcgetattr(STDIN_FILENO, &new_term) == -1)
-	{
-		perror("tcgetattr");
-		exit(1);
-	}
-	new_term.c_lflag &= ~(ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &new_term) == -1)
+	info->new_term = info->old_term;
+	info->new_term.c_lflag &= ~(IEXTEN | ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &info->new_term) == -1)
 	{
 		perror("tcsetattr");
 		exit(1);
 	}
-	ms_set_signal(SHELL, SHELL);
-	g_exit_status = 0;
+}
+void	ms_set_execute_mode(t_minishell *info)
+{
+	info->new_term.c_lflag |= (IEXTEN | ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &info->new_term) == -1)
+	{
+		perror("tcsetattr");
+		exit(1);
+	}
 }
 
 void	ms_signal_handler(int signo)
