@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/16 08:16:09 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/18 20:48:43 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,17 @@ typedef struct s_quoteinfo
 	int		dquote;
 }	t_quoteinfo;
 
+typedef struct s_convertinfo
+{
+	int		idx;
+	int		start;
+	char	*var;
+	char	*ret;
+}	t_convertinfo;
+
 typedef struct s_minishell
 {
-	char				*arg;
+	char			*arg;
 	char			**envp;
 	char			**export;
 	char			*readline;

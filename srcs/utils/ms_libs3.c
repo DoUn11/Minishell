@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:50:39 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/15 22:35:49 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:14:05 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*ms_strjoin_f(char *s1, char *s2)
 	char	*ret;
 
 	ret = ms_strjoin(s1, s2);
-	free(s1);
-	free(s2);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
 	return (ret);
 }
 

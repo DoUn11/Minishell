@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:19:42 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 17:49:20 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:33:14 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ void	ms_cd_buitin(t_minishell *info, char **tk_list)
 {
 	char	buffer[PATH_MAX];
 
-	getcwd(buffer, PATH_MAX);
+	if (getcwd(buffer, PATH_MAX) == NULL)
+	{
+		perror("getcwd");
+		exit(1);
+	}
 	if (tk_list[1] == 0)
 		ms_cd_no_arg(info, buffer);
 	else
@@ -36,17 +40,15 @@ void	ms_cd_no_arg(t_minishell *info, char buffer[PATH_MAX])
 		g_exit_status = 1;
 	}
 	else if (chdir(path) == -1)
-	{
-		write(2, "minishell: ", 11);
-		write(2, "cd: ", 4);
-		write(2, path, ms_strlen(path));
-		write(2, ": No such file or directory\n", 28);
-		g_exit_status = 1;
-	}
+		ms_print_path_err(path);
 	else
 	{
 		ms_change_value(info, buffer, "OLDPWD=");
-		getcwd(buffer, PATH_MAX);
+		if (getcwd(buffer, PATH_MAX) == NULL)
+		{
+			perror("getcwd");
+			exit(1);
+		}
 		ms_change_value(info, buffer, "PWD=");
 	}
 	free(path);
@@ -58,17 +60,24 @@ void	ms_cd_arg(t_minishell *info, char buffer[PATH_MAX], char **tk_list)
 
 	path = tk_list[1];
 	if (chdir(path) == -1)
-	{
-		write(2, "minishell: ", 11);
-		write(2, "cd: ", 4);
-		write(2, path, ms_strlen(path));
-		write(2, ": No such file or directory\n", 28);
-		g_exit_status = 1;
-	}
+		ms_print_path_err(path);
 	else
 	{
 		ms_change_value(info, buffer, "OLDPWD=");
-		getcwd(buffer, PATH_MAX);
+		if (getcwd(buffer, PATH_MAX) == NULL)
+		{
+			perror("getcwd");
+			exit(1);
+		}
 		ms_change_value(info, buffer, "PWD=");
 	}
+}
+
+void	ms_print_path_err(char *path)
+{
+	write(2, "minishell: ", 11);
+	write(2, "cd: ", 4);
+	write(2, path, ms_strlen(path));
+	write(2, ": No such file or directory\n", 28);
+	g_exit_status = 1;
 }

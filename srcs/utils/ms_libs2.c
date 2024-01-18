@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:12:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/15 22:35:38 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:19:12 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ms_strndup(const char *s1, int n)
 		len = n + 1;
 	ret = (char *)malloc(len);
 	if (!ret)
-		return (NULL);
+		malloc_err();
 	idx = 0;
 	while (idx + 1 < len)
 	{

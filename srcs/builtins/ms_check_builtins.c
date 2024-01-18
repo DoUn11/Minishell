@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:18:21 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 08:37:31 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/18 13:40:22 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_builtins.h"
 
-int	ms_check_builtin(t_minishell *info, char **cmdargs)
+int	ms_check_builtin(t_minishell *info, char **cmdargs, int pid)
 {
 	char	*builtin_cmd;
 
@@ -32,7 +32,7 @@ int	ms_check_builtin(t_minishell *info, char **cmdargs)
 	else if (!ms_strncmp(builtin_cmd, "env", 4))
 		ms_env_builtin(info, cmdargs);
 	else if (!ms_strncmp(builtin_cmd, "exit", 5))
-		ms_exit_builtin(info, cmdargs);
+		ms_exit_builtin(info, cmdargs, pid);
 	else
 		return (0);
 	return (1);

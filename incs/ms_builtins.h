@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/16 08:36:46 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/18 14:28:22 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ms_minishell.h"
 # include "limits.h"
 
-int		ms_check_builtin(t_minishell *info, char **cmdargs);
+int		ms_check_builtin(t_minishell *info, char **cmdargs, int pid);
 
 //echo
 void	ms_echo_builtin(char **tk_list);
@@ -28,6 +28,7 @@ void	ms_echo_option(char **tk_list, int idx);
 void	ms_cd_buitin(t_minishell *info, char **tk_list);
 void	ms_cd_no_arg(t_minishell *info, char buffer[PATH_MAX]);
 void	ms_cd_arg(t_minishell *info, char buffer[PATH_MAX], char **tk_list);
+void	ms_print_path_err(char *path);
 void	ms_change_value1(t_minishell *info, char buffer[PATH_MAX], char *name);
 void	ms_change_value2(t_minishell *info, char buffer[PATH_MAX], char *name);
 void	ms_change_value(t_minishell *info, char buffer[PATH_MAX], char *name);
@@ -65,7 +66,7 @@ void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int (*i)[2]);
 void	ms_env_builtin(t_minishell *info, char **tk_list);
 
 //exit
-void	ms_exit_builtin(t_minishell *info, char **tk_list);
+void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid);
 void	ms_no_numeric_print(char *str);
 void	ms_many_arg_print(void);
 

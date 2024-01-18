@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:21:39 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 01:45:44 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/18 13:52:54 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 unsigned char	ms_atol(char *str, int *flag);
 
-void	ms_exit_builtin(t_minishell *info, char **tk_list)
+void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid)
 {
 	int	flag;
 	int	arg_size;
 
 	flag = 0;
 	arg_size = ms_get_listsize(tk_list);
-	write(2, "exit\n", 5);
+	if (pid != 0 && tk_list[1] == 0)
+		write(2, "exit\n", 5);
 	if (tk_list[1] == 0)
 		exit(g_exit_status);
 	g_exit_status = ms_atol(tk_list[1], &flag);
@@ -35,6 +36,8 @@ void	ms_exit_builtin(t_minishell *info, char **tk_list)
 		ms_many_arg_print();
 		return ;
 	}
+	if (pid != 0)
+		write(2, "exit\n", 5);
 	exit(g_exit_status);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:55 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 13:53:27 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/18 20:48:37 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ char	*ms_getvarname(char *str, int *idx);
 char	*ms_getvardata(t_minishell *info, char *var);
 char	*ms_getparams(t_minishell *info, char c);
 t_list	*ms_tokenize(t_list *splited);
+
+void	ms_convert_reset(t_quoteinfo *quotes, t_convertinfo *c_info);
+void	ms_dollar_convert(t_convertinfo *c_info, char **str);
+void	ms_check_var_null(t_convertinfo *c_info, char **str);
+void	ms_ret_join(t_convertinfo *c_info, char **str);
 
 #endif
