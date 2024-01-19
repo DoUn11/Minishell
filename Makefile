@@ -6,7 +6,7 @@
 #    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/09 22:18:42 by doukim           ###   ########.fr        #
+#    Updated: 2024/01/19 16:14:55 by doukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,30 +34,28 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
 
-$(OBJS) : $(OBJDIR)
-
 $(OBJDIR) :
 	@mkdir objs
 
-$(OBJDIR)%.o : $(SRCDIR)main/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)main/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)builtins/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)builtins/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)error/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)error/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)executor/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)executor/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)lexer/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)lexer/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)utils/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)utils/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(OBJDIR)%.o : $(SRCDIR)parser/%.c $(INCS)
+$(OBJDIR)%.o : $(SRCDIR)parser/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
@@ -68,4 +66,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 13:34:51 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 17:53:12 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ void	ms_lexerror(t_minishell *info, int *error)
 }
 
 void	ms_parerror(t_minishell *info, int *error)
+{
+	*error = 1;
+	g_exit_status = errno;
+	if (errno == 0)
+		ms_msherror(info->errnum);
+	else
+		ms_perror(strerror(errno));
+}
+
+void	ms_exeerror(t_minishell *info, int *error)
 {
 	*error = 1;
 	g_exit_status = errno;

@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 13:44:45 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:07:14 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	ms_loop(t_minishell *info)
 			add_history(info->readline);
 		if (!error && (errno || ms_lexer(info)))
 			ms_lexerror(info, &error);
-		if (!error && ms_parser(info))
+		if (!error && (errno || ms_parser(info)))
 			ms_parerror(info, &error);
-		// ms_set_execute_mode(info);
-		// if (!error && ms_executor(info))
-		// 	ms_exeerror(info, &error);
+		ms_set_execute_mode(info);
+		if (!error && ms_executor(info))
+			ms_exeerror(info, &error);
 		ms_reset_term_mode(info);
 		free(info->readline);
 	}
