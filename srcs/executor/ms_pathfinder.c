@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/16 00:09:07 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:25:55 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ char	*ms_get_cmdpath(char *filename, char **envpath)
 	free(cmdpath);
 	if (!access(filename, X_OK))
 		return (ms_strdup(filename));
-	return (NULL);
+	return (ms_strdup(filename));
 }

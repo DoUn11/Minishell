@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:20:17 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 08:17:41 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:41:54 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ms_set_input_mode(t_minishell *info)
 		perror("tcsetattr");
 		exit(1);
 	}
+	ms_set_signal(SHELL, SHELL);
 }
 void	ms_set_execute_mode(t_minishell *info)
 {

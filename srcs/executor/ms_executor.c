@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/16 08:35:13 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 09:49:35 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,24 @@ int	ms_executor(t_minishell *info)
 				close(info->fds[idx][0]);
 			if (info->fds[idx][1] != 1)
 				close(info->fds[idx][1]);
+			if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
+			{
+				close(STDERR_FILENO);
+				if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
+					exit(g_exit_status);
+			}
 			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
-				exit(g_exit_status);
+					exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
-			free(envpath);
+			free(envpath); 
 			if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
+			{
+				write(2, strerror(errno), ms_strlen(strerror(errno)));
+				write(2, "\n", 1);
+				g_exit_status = errno;
 				exit(errno);
+			}
 		}
 		else //parent
 		{
@@ -159,10 +170,19 @@ int	ms_executor(t_minishell *info)
 				close(info->pipes[idx - 1][0]);
 				close(info->pipes[idx - 1][1]);
 			}
+			// if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
+			// {
+			// 	if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "export", 7) && ((t_cmd *)tmp->data)->cmdargs[1])
+			// 		ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs);
+			// 	else if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "unset", 6))
+			// 		ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs);
+			// 	else if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "cd", 3))
+			// 		ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs);
+			// }
 		}
 		tmp = tmp->next;
 		idx++;
 	}
 	ms_wait_child(info);
-	ms_set_signal(SHELL, SHELL);
+	return (0);
 }

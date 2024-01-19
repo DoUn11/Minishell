@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export_arg_builtin.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:57:07 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/10 00:21:15 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:10:05 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	ms_check_key_utils(t_minishell *info, char *str, int i)
 			malloc_err();
 		pos = ms_check_exist(info, key);
 		if (pos == 0)
-		{	
+		{
 			ms_add_key_value(&(info->envp), str);
 			ms_add_key_value(&(info->export), str);
 		}
