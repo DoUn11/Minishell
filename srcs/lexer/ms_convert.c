@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_convert.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:36:38 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 13:20:01 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:40:01 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ int	ms_chk_quotes_closed(t_minishell *info, t_quoteinfo q, char *ret)
 	return (0);
 }
 
+void	ms_convert_1(t_minishell *info, t_convertinfo *c_info)
+{
+	c_info->start = c_info->idx + 1;
+	c_info->ret = ms_strjoin_f(c_info->ret, ms_getvardata(info, c_info->var));
+}
+
 char	*ms_convert(t_minishell *info, char *str)
 {
 	t_quoteinfo		quotes;
@@ -49,15 +55,13 @@ char	*ms_convert(t_minishell *info, char *str)
 				ms_check_var_null(&c_info, &str);
 				continue ;
 			}
-			c_info.start = c_info.idx + 1;
-			c_info.ret = ms_strjoin_f(c_info.ret, ms_getvardata(info, c_info.var));
+			ms_convert_1(info, &c_info);
 		}
 		c_info.idx++;
 	}
 	if (!c_info.ret || ms_chk_quotes_closed(info, quotes, c_info.ret))
 		return (NULL);
-	ms_ret_join(&c_info, &str);
-	return (c_info.ret);
+	return (ms_ret_join(&c_info, &str), c_info.ret);
 }
 
 /*
