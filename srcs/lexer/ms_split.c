@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:42:13 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/18 17:50:49 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:44:10 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,22 @@
 int	ms_split_wspace_redir(t_list **ret, char **str, int *idx, char **word)
 {
 	while ((*str)[*idx] && ms_iswhitespace((*str)[*idx]))
-			(*idx)++;
+		(*idx)++;
 	(*str) += (*idx);
 	*idx = 0;
-	if (!(*str)[*idx])
-		return (1);
 	(*word) = ms_strdup("");
-	if (*word == 0)
-		malloc_err();
-	while ((*str)[*idx] == '<' || (*str)[*idx] == '>')
+	while ((*str)[*idx] && (*str)[*idx] == '<' || (*str)[*idx] == '>')
 	{
 		(*idx) += 1 + ((*str)[*idx + 1] == (*str)[*idx]);
 		(*word) = ms_strjoin_f((*word), ms_strndup((*str), *idx));
-		if (*word == 0)
-			malloc_err();
 		(*str) += (*idx);
 		*idx = 0;
+		if (!*word)
+			return (1);
 		ms_lstadd(ret, (*word));
 		if (!(*str)[*idx])
-			return (1);
+			return (0);
 		(*word) = ms_strdup("");
-		if (*word == 0)
-			malloc_err();
 	}
 	return (0);
 }
@@ -47,21 +41,19 @@ int	ms_split_pipe(t_list **ret, char **str, int *idx, char **word)
 	{
 		(*idx)++;
 		*word = ms_strjoin_f(*word, ms_strndup(*str, *idx));
-		if (*word == 0)
-			malloc_err();
 		(*str) += (*idx);
 		*idx = 0;
+		if (!*word)
+			return (1);
 		ms_lstadd(ret, *word);
 		if (!(*str)[(*idx)])
-			return (1);
+			return (0);
 		*word = ms_strdup("");
-		if (*word == 0)
-			malloc_err();
 	}
 	return (0);
 }
 
-void	ms_split_quote(char **s, int *idx, char **word)
+int	ms_split_quote(char **s, int *idx, char **word, char *str, t_list **ret)
 {
 	char	quote;
 
@@ -73,21 +65,22 @@ void	ms_split_quote(char **s, int *idx, char **word)
 		{
 			quote = (*s)[(*idx)];
 			(*word) = ms_strjoin_f((*word), ms_strndup((*s), (*idx)));
-			if ((*word) == 0)
-				malloc_err();
 			(*s) += (*idx) + ((*word)[0] != '\0');
 			(*idx) = ((*word)[0] == '\0');
 			while ((*s)[(*idx)] != quote)
 				(*idx)++;
 			(*word) = ms_strjoin_f((*word), ms_strndup((*s), (*idx)));
-			if ((*word) == 0)
-				malloc_err();
 			(*s) += (*idx) + 1;
 			(*idx) = -1;
 		}
 		quote = 0;
 		(*idx)++;
 	}
+	*word = ms_strjoin_f(*word, ms_strndup(str, *idx));
+	if (!*word)
+		return (1);
+	ms_lstadd(ret, *word);
+	return (0);
 }
 
 t_list	*ms_split(char *str)
@@ -100,20 +93,15 @@ t_list	*ms_split(char *str)
 	idx = 0;
 	while (str[idx])
 	{
-		if (ms_split_wspace_redir(&ret, &str, &idx, &word) == 1)
-			return (ret);
-		if (ms_split_pipe(&ret, &str, &idx, &word) == 1)
-			return (ret);
+		if (str[idx] && ms_split_wspace_redir(&ret, &str, &idx, &word))
+			return (NULL);
+		if (str[idx] && ms_split_pipe(&ret, &str, &idx, &word))
+			return (NULL);
 		if (str[idx] && !ms_iswhitespace(str[idx]) && \
-			str[idx] != '<' && str[idx] != '>')
-		{
-			ms_split_quote(&str, &idx, &word);
-			word = ms_strjoin_f(word, ms_strndup(str, idx));
-			if (word == 0)
-				malloc_err();
-			ms_lstadd(&ret, word);
-		}
-		else
+			str[idx] != '<' && str[idx] != '>' && \
+			ms_split_quote(&str, &idx, &word, str, &ret))
+				return (NULL);
+		if (word && !word[0])
 			free(word);
 	}
 	return (ret);

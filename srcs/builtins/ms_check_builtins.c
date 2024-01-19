@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:18:21 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/18 13:40:22 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:57:48 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ms_check_builtin(t_minishell *info, char **cmdargs, int pid)
 {
 	char	*builtin_cmd;
 
-	printf("{builtin}\n");
 	builtin_cmd = cmdargs[0];
 	g_exit_status = 0;
 	if (!ms_strncmp(builtin_cmd, "echo", 5))
@@ -35,5 +34,6 @@ int	ms_check_builtin(t_minishell *info, char **cmdargs, int pid)
 		ms_exit_builtin(info, cmdargs, pid);
 	else
 		return (0);
+	printf("{builtin}\n");
 	return (1);
 }

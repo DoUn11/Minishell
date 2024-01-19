@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/19 09:49:35 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 09:56:55 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,13 @@ int	ms_executor(t_minishell *info)
 				close(info->fds[idx][0]);
 			if (info->fds[idx][1] != 1)
 				close(info->fds[idx][1]);
-			if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
-			{
-				close(STDERR_FILENO);
-				if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
-					exit(g_exit_status);
-			}
-			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
+			// if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
+			// {
+			// 	close(STDERR_FILENO);
+			// 	if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
+			// 		exit(g_exit_status);
+			// }
+			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid))
 					exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);

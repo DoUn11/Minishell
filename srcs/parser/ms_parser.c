@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 07:21:34 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/09 14:40:58 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 13:35:47 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ int	ms_parser(t_minishell *info)
 {
 	int		valid;
 
-	valid = ms_syntax(info);
-	if (valid == 0)
+	if (ms_syntax(info))
 		return (1);
 	printf("\n\nsyntax test passed\n\n");
-	valid = ms_cmdlist(info);
-	if (valid == 0)
+	if (ms_cmdlist(info))
 		return (1);
 	
 	t_list *tmp = info->cmdlist;

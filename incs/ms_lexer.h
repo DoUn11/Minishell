@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:55 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/18 20:48:37 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:06:44 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # define T_NULL 0
 # define T_WORD 1
 # define T_PIPE 2
-# define T_REDIRECT 3
+# define T_L 3
+# define T_R 4
+# define T_LL 5
+# define T_RR 6
 
 int		ms_lexer(t_minishell *info);
 t_list	*ms_split(char *str);
