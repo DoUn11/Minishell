@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_syntax.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:23:03 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 14:05:42 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/20 22:28:37 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	ms_syntax_valid(int prev, int cur)
 	if (prev == T_R || prev == T_L || prev == T_LL || prev == T_RR)
 		return (!(cur != T_WORD));
 }
+
 static int	ms_syntax_invalid(t_minishell *info, int cur)
 {
 	if (cur == T_NULL)
@@ -37,6 +38,7 @@ static int	ms_syntax_invalid(t_minishell *info, int cur)
 		info->errnum = 6;
 	return (1);
 }
+
 int	ms_syntax(t_minishell *info)
 {
 	t_tokenlist		*tmp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:45:08 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/10 07:44:30 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/20 18:15:02 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ char	*ms_itoa(int n);
 char	*ms_substr(char const *s, unsigned int start, size_t len);
 
 void	*ms_memset(void *b, int c, size_t len);
+
+char	*get_next_line(int fd);
 
 #endif

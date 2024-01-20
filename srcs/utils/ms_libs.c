@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:24:32 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/15 22:35:27 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/21 03:38:25 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	ms_strncmp(const char *s1, const char *s2, size_t n)
 
 	if (!n)
 		return (0);
+	if (!s1 || !s2)
+		return (1);
 	idx = 0;
 	while (s1[idx] && s1[idx] == s2[idx] && idx + 1 < n)
 		idx++;

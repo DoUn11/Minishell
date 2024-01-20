@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/18 14:28:22 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/21 00:32:53 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "limits.h"
 
 int		ms_check_builtin(t_minishell *info, char **cmdargs, int pid);
+int		ms_check_builtin_is(char **cmdargs);
 
 //echo
 void	ms_echo_builtin(char **tk_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 13:44:45 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/21 03:51:38 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ms_loop(t_minishell *info)
 	{
 		error = 0;
 		ms_set_input_mode(info);
+		ms_set_signal(SHELL, SHELL);
 		info->readline = readline(READLINE_MSG);
 		if (!info->readline)
 		{
@@ -33,7 +34,8 @@ void	ms_loop(t_minishell *info)
 			ms_lexerror(info, &error);
 		if (!error && ms_parser(info))
 			ms_parerror(info, &error);
-		// ms_set_execute_mode(info);
+		ms_set_execute_mode(info);
+		ms_executor(info);
 		// if (!error && ms_executor(info))
 		// 	ms_exeerror(info, &error);
 		ms_reset_term_mode(info);

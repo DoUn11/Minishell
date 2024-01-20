@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/16 08:17:51 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/20 18:17:30 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	ms_set_execute_mode(t_minishell *info);
 void	ms_signal_handler(int signo);
 void	ms_set_signal(int sig_int, int sig_quit);
 
+int		ms_heredoc(t_minishell *info, t_redirect *tmp);
 
 #endif

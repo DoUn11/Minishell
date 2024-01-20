@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:18:21 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/19 09:57:48 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/21 03:27:35 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,28 @@ int	ms_check_builtin(t_minishell *info, char **cmdargs, int pid)
 		ms_exit_builtin(info, cmdargs, pid);
 	else
 		return (0);
-	printf("{builtin}\n");
+	// printf("{builtin}\n");
 	return (1);
+}
+
+int	ms_check_builtin_is(char **cmdargs)
+{
+	char	*builtin_cmd;
+
+	builtin_cmd = cmdargs[0];
+	if (!ms_strncmp(builtin_cmd, "echo", 5))
+		return (1);
+	else if (!ms_strncmp(builtin_cmd, "cd", 3))
+		return (1);
+	else if (!ms_strncmp(builtin_cmd, "pwd", 4))
+		return (1);
+	else if (!ms_strncmp(builtin_cmd, "export", 7))
+		return (1);
+	else if (!ms_strncmp(builtin_cmd, "unset", 6))
+		return (1);
+	else if (!ms_strncmp(builtin_cmd, "env", 4))
+		return (1);
+	else if (!ms_strncmp(builtin_cmd, "exit", 5))
+		return (1);
+	return (0);
 }

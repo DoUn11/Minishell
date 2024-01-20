@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_signal_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:20:17 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/19 13:21:30 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/21 03:51:39 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ms_set_input_mode(t_minishell *info)
 		perror("tcsetattr");
 		exit(1);
 	}
-	ms_set_signal(SHELL, SHELL);
 	info->errnum = 0;
 }
 void	ms_set_execute_mode(t_minishell *info)

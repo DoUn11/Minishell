@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/19 09:56:55 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/21 03:49:58 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ms_get_pipe(t_minishell *info)
 {
 	int	idx;
-	
+
 	info->pipes = malloc(sizeof(int *) * info->cmdcnt - 1);
 	if (!info->pipes)
 		return (-1);
@@ -35,7 +35,7 @@ int	ms_get_pipe(t_minishell *info)
 int	ms_get_fds(t_minishell *info)
 {
 	int	idx;
-	
+
 	info->fds = malloc(sizeof(int *) * info->cmdcnt);
 	if (!info->fds)
 		return (-1);
@@ -80,17 +80,16 @@ void	ms_wait_child(t_minishell *info)
 	}
 }
 
-int	ms_get_redir_fd(t_redirect *redirect)
+int	ms_get_redir_fd(t_minishell *info, t_redirect *redirect)
 {
 	int	ret;
-	
+
 	if (redirect->type == 1)
 		ret = open(redirect->str, O_RDONLY, 0644);
 	if (redirect->type == 2)
 		ret = open(redirect->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (redirect->type == 3)
-		//ret = ms_heredoc();
-		;
+		ret = ms_heredoc(info, redirect);
 	if (redirect->type == 4)
 		ret = open(redirect->str, O_RDWR | O_CREAT | O_APPEND, 0644);
 	return (ret);
@@ -118,12 +117,13 @@ int	ms_executor(t_minishell *info)
 		pid = fork();
 		if (pid == 0) //child
 		{
+			ms_set_signal(DEFAULT, DEFAULT);
 			redirtmp = (t_redirectlist *)((t_cmd *)tmp->data)->redirects;
 			while (redirtmp)
 			{
 				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] != (redirtmp->redirect->type + 1) % 2)
 					close(info->fds[idx][(redirtmp->redirect->type + 1) % 2]);
-				info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(redirtmp->redirect);
+				info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(info, redirtmp->redirect);
 				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
 					return (-1);
 				redirtmp = redirtmp->next;
@@ -149,18 +149,28 @@ int	ms_executor(t_minishell *info)
 			// 	if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
 			// 		exit(g_exit_status);
 			// }
-			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid))
-					exit(g_exit_status);
+			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt != 1)
+			{
+				ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid);
+				exit(g_exit_status);
+			}
+			// if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid) && info->cmdcnt != 1)
+			// 	exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
 			free(envpath); 
-			if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
+			if (!ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs))
 			{
-				write(2, strerror(errno), ms_strlen(strerror(errno)));
-				write(2, "\n", 1);
-				g_exit_status = errno;
-				exit(errno);
+				if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
+				{
+					write(2, strerror(errno), ms_strlen(strerror(errno)));
+					write(2, "\n", 1);
+					g_exit_status = errno;
+					exit(errno);
+				}
 			}
+			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt == 1)
+				exit(g_exit_status);
 		}
 		else //parent
 		{
@@ -170,6 +180,8 @@ int	ms_executor(t_minishell *info)
 				close(info->pipes[idx - 1][0]);
 				close(info->pipes[idx - 1][1]);
 			}
+			if (info->cmdcnt == 1)
+				ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid);
 			// if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
 			// {
 			// 	if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "export", 7) && ((t_cmd *)tmp->data)->cmdargs[1])
