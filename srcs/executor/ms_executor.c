@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/19 18:18:52 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/19 09:56:55 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int	ms_executor(t_minishell *info)
 		pid = fork();
 		if (pid == 0) //child
 		{
-			ms_set_signal(DEFAULT, DEFAULT);
 			redirtmp = (t_redirectlist *)((t_cmd *)tmp->data)->redirects;
 			while (redirtmp)
 			{
@@ -126,7 +125,7 @@ int	ms_executor(t_minishell *info)
 					close(info->fds[idx][(redirtmp->redirect->type + 1) % 2]);
 				info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(redirtmp->redirect);
 				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
-					return (errno);
+					return (-1);
 				redirtmp = redirtmp->next;
 			}
 			dup2(info->fds[idx][0], STDIN_FILENO);
@@ -151,15 +150,17 @@ int	ms_executor(t_minishell *info)
 			// 		exit(g_exit_status);
 			// }
 			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid))
-				exit(errno);
+					exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
-			//if (!cmdtmp)
-				//exit(1);
 			free(envpath); 
 			if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
 			{
+				write(2, strerror(errno), ms_strlen(strerror(errno)));
+				write(2, "\n", 1);
+				g_exit_status = errno;
 				exit(errno);
+			}
 		}
 		else //parent
 		{
@@ -183,6 +184,5 @@ int	ms_executor(t_minishell *info)
 		idx++;
 	}
 	ms_wait_child(info);
-	errno = g_exit_status;
 	return (0);
 }
