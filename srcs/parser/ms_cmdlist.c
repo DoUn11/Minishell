@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cmdlist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:48:17 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/21 03:36:42 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/21 09:44:33 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ms_cmdlist(t_minishell *info)
 	
 	info->cmdlist = NULL;
 	info->cmdcnt = 0;
-	tmp = info->tokenlist;
+	tmp = (t_tokenlist *)info->tokenlist;
 	while (tmp)
 	{
 		cmdargc = ms_get_cmd_argc(tmp);

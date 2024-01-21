@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/21 03:49:58 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:46:05 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,47 @@ int	ms_get_redir_fd(t_minishell *info, t_redirect *redirect)
 		ret = open(redirect->str, O_RDWR | O_CREAT | O_APPEND, 0644);
 	return (ret);
 }
+int	ms_get_redirects(t_minishell *info, t_list *redirects, int idx)
+{
+	t_redirectlist	*redirtmp;
 
+	redirtmp = (t_redirectlist *)redirects;
+	while (redirtmp)
+	{
+		if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] != (redirtmp->redirect->type + 1) % 2)
+			close(info->fds[idx][(redirtmp->redirect->type + 1) % 2]);
+		info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(info, redirtmp->redirect);
+		if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
+		{
+			ms_exeerror(info, redirtmp->redirect->str, 1);
+			exit(errno);
+		}
+		redirtmp = redirtmp->next;
+	}
+	return (0);
+}
+void	ms_close_unusing_fds(t_minishell *info, int idx)
+{
+	int	idx2 = 0;
+	while (idx2 < info->cmdcnt - 1)
+	{
+		if (info->pipes[idx2][0] != info->fds[idx][0])
+			close(info->pipes[idx2][0]);
+		if (info->pipes[idx2][1] != info->fds[idx][1])
+			close(info->pipes[idx2][1]);
+		idx2++;
+	}
+	if (info->fds[idx][0] != 0)
+		close(info->fds[idx][0]);
+	if (info->fds[idx][1] != 1)
+		close(info->fds[idx][1]);
+}
 int	ms_executor(t_minishell *info)
 {
 	t_list			*tmp;
-	t_redirectlist	*redirtmp;
 	char			*cmdtmp;
 	char			**envpath;
 	int				idx;
-	int				idx2;
 	int				pid;
 	
 	printf("------ executor ------\n\n");
@@ -118,59 +150,24 @@ int	ms_executor(t_minishell *info)
 		if (pid == 0) //child
 		{
 			ms_set_signal(DEFAULT, DEFAULT);
-			redirtmp = (t_redirectlist *)((t_cmd *)tmp->data)->redirects;
-			while (redirtmp)
-			{
-				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] != (redirtmp->redirect->type + 1) % 2)
-					close(info->fds[idx][(redirtmp->redirect->type + 1) % 2]);
-				info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(info, redirtmp->redirect);
-				if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
-					return (-1);
-				redirtmp = redirtmp->next;
-			}
+			ms_get_redirects(info, ((t_cmd *)tmp->data)->redirects, idx);
+			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt == 1)
+				exit(0);
+			if (((t_cmd *)tmp->data)->cmdargs[0] == NULL)
+				exit(0);
 			dup2(info->fds[idx][0], STDIN_FILENO);
 			dup2(info->fds[idx][1], STDOUT_FILENO);
-			idx2 = 0;
-			while (idx2 < info->cmdcnt - 1)
-			{
-				if (info->pipes[idx2][0] != info->fds[idx][0])
-					close(info->pipes[idx2][0]);
-				if (info->pipes[idx2][1] != info->fds[idx][1])
-					close(info->pipes[idx2][1]);
-				idx2++;
-			}
-			if (info->fds[idx][0] != 0)
-				close(info->fds[idx][0]);
-			if (info->fds[idx][1] != 1)
-				close(info->fds[idx][1]);
-			// if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
-			// {
-			// 	close(STDERR_FILENO);
-			// 	if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs))
-			// 		exit(g_exit_status);
-			// }
-			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt != 1)
-			{
-				ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid);
+			ms_close_unusing_fds(info, idx);
+			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid))
 				exit(g_exit_status);
-			}
-			// if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid) && info->cmdcnt != 1)
-			// 	exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
-			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
-			free(envpath); 
-			if (!ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs))
+			cmdtmp = ms_get_cmdpath(info, ((t_cmd *)tmp->data)->cmdargs[0], envpath);
+			free(envpath);
+			if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
 			{
-				if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
-				{
-					write(2, strerror(errno), ms_strlen(strerror(errno)));
-					write(2, "\n", 1);
-					g_exit_status = errno;
-					exit(errno);
-				}
+				ms_exeerror(info, NULL, 0);
+				exit(errno);
 			}
-			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt == 1)
-				exit(g_exit_status);
 		}
 		else //parent
 		{
@@ -180,21 +177,13 @@ int	ms_executor(t_minishell *info)
 				close(info->pipes[idx - 1][0]);
 				close(info->pipes[idx - 1][1]);
 			}
-			if (info->cmdcnt == 1)
+			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt == 1)
 				ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid);
-			// if (info->cmdcnt == 1 && ms_check_cmdname(info, ((t_cmd *)tmp->data)->cmdargs))
-			// {
-			// 	if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "export", 7) && ((t_cmd *)tmp->data)->cmdargs[1])
-			// 		ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs);
-			// 	else if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "unset", 6))
-			// 		ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs);
-			// 	else if (!ms_strncmp(((t_cmd *)tmp->data)->cmdargs[0], "cd", 3))
-			// 		ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs);
-			// }
 		}
 		tmp = tmp->next;
 		idx++;
 	}
 	ms_wait_child(info);
+	errno = g_exit_status;
 	return (0);
 }

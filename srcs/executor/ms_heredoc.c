@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:16:10 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/21 03:46:59 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/21 08:22:23 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,24 @@
 void	input_stream(t_minishell *info, t_redirect	*tmp, int temp_fd)
 {
 	char	*line;
-	char	*add_nextline;
 
 	ms_set_input_mode(info);
+	ms_set_signal(DEFAULT, DEFAULT);
 	while (1)
 	{
-		write(1, "> ", 2);
-		line = get_next_line(0);
-		add_nextline = ms_strjoin(tmp->str, "\n");
+		line = readline("> ");
 		if (!line)
 		{
-			free(add_nextline);
+			write(1, "\033[1A\033[2C", 8);
 			break ;
 		}
-		if (!ms_strncmp(add_nextline, line, ms_strlen(line)))
+		if (!ms_strncmp(tmp->str, line, ms_strlen(tmp->str) + 1))
 		{
-			free(add_nextline);
 			free(line);
 			break ;
 		}
+		line = ms_strjoin_f(line, ms_strdup("\n"));
 		write(temp_fd, line, ms_strlen(line));
-		free(add_nextline);
 		free(line);
 	}
 	ms_set_execute_mode(info);
@@ -53,5 +50,6 @@ int	ms_heredoc(t_minishell *info, t_redirect *tmp)
 		exit(1);
 	}
 	input_stream(info, tmp, temp_fd);
-	return (temp_fd);
+	close(temp_fd);
+	return (open(info->temp_file, O_RDONLY, 0644));
 }

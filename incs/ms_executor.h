@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/20 18:17:30 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/21 09:35:42 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ms_temp_utils(t_minishell *info);
 char	**ms_pathsplit(char const *s, char c);
 
 char	**ms_get_envpath(char **envp);
-char	*ms_get_cmdpath(char *filename, char **envp);
+char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envp);
 
 void	ms_save_input_mode(struct termios *original_term);
 void	ms_reset_term_mode(t_minishell *info);
