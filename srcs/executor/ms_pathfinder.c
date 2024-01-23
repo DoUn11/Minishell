@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pathfinder.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 16:28:26 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 23:02:57 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ms_iscommand(char *filename)
 	int	idx;
 
 	idx = 0;
-	while(filename[idx])
+	while (filename[idx])
 	{
 		if (filename[idx] == '/')
 			return (0);
@@ -36,6 +36,7 @@ int	ms_iscommand(char *filename)
 	}
 	return (1);
 }
+
 int	ms_chk_is_dir(t_minishell *info, char *filename)
 {
 	struct stat	filestat;
@@ -49,6 +50,13 @@ int	ms_chk_is_dir(t_minishell *info, char *filename)
 	}
 	return (1);
 }
+
+void	ms_get_cmdpath_permissiondenied_util(t_minishell *info, char *filename)
+{
+	ms_exeerror(info, filename, 4);
+	exit(126);
+}
+
 char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envpath)
 {
 	int		is_command;
@@ -72,10 +80,7 @@ char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envpath)
 	if (!is_command && !access(filename, X_OK) && ms_chk_is_dir(info, filename))
 		return (ms_strdup(filename));
 	if (errno == EACCES)
-	{
-		ms_exeerror(info, filename, 4);
-		exit(126);
-	}
+		ms_get_cmdpath_permissiondenied_util(info, filename);
 	ms_exeerror(info, filename, is_command + 1);
 	exit(127);
 }
