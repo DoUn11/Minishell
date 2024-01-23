@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 16:25:06 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 22:53:37 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ms_msherror(int errnum)
 	if (errnum == 7)
 		ms_perror("syntax error near unexpected token `newline\'");
 }
+
 void	ms_lexerror(t_minishell *info, int *error)
 {
 	*error = 1;
@@ -64,6 +65,7 @@ void	ms_file_error(char *filename, int errnum)
 	if (errnum == 4)
 		write(2, "Permission denied\n", 19);
 }
+
 void	ms_exeerror(t_minishell *info, char *filename, int errnum)
 {
 	write(2, "minishell: ", 12);

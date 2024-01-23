@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_error_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:15:30 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/21 10:02:22 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 00:38:23 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ms_perror(char *str)
 	write(2, "\n", 2);
 }
 
-void	malloc_err()
+void	malloc_err(void)
 {
-	;
+	perror("");
+	exit(EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_libs2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:12:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 11:39:45 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 23:03:48 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ char	*ms_strndup(const char *s1, int n)
 char	*ms_strjoin(char const *s1, char const *s2)
 {
 	const size_t	len = ms_strlen(s1) + ms_strlen(s2);
-	char 		*ret;
-	int			idx;
-	int			idx2;
+	char			*ret;
+	int				idx;
+	int				idx2;
 
 	if (!s1 || !s2)
 		return (NULL);

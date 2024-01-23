@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_convert_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 20:46:45 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/19 12:51:28 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 00:22:06 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ void	ms_ret_join(t_convertinfo *c_info, char **str)
 {
 	c_info->ret = ms_strjoin_f(c_info->ret, \
 		ms_strndup(*str + c_info->start, c_info->idx - c_info->start));
+}
+
+void	ms_convert_1(t_minishell *info, t_convertinfo *c_info)
+{
+	c_info->start = c_info->idx + 1;
+	c_info->ret = ms_strjoin_f(c_info->ret, ms_getvardata(info, c_info->var));
 }

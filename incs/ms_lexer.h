@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:55 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 14:06:44 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 00:21:57 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	ms_convert_reset(t_quoteinfo *quotes, t_convertinfo *c_info);
 void	ms_dollar_convert(t_convertinfo *c_info, char **str);
 void	ms_check_var_null(t_convertinfo *c_info, char **str);
 void	ms_ret_join(t_convertinfo *c_info, char **str);
+void	ms_convert_1(t_minishell *info, t_convertinfo *c_info);
 
 #endif
