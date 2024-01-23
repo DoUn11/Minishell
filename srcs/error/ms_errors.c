@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 16:17:29 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 16:25:06 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,15 @@ void	ms_file_error(char *filename, int errnum)
 		write(2, "command not found\n", 19);
 	if (errnum == 3)
 		write(2, "is a directory\n", 16);
+	if (errnum == 4)
+		write(2, "Permission denied\n", 19);
 }
 void	ms_exeerror(t_minishell *info, char *filename, int errnum)
 {
 	write(2, "minishell: ", 12);
 	write(2, filename, ms_strlen(filename));
 	write(2, ": ", 3);
-	if (errno == 0)
+	if (errnum != 0)
 		ms_file_error(filename, errnum);
 	else
 		perror("");

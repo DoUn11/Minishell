@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 13:38:04 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 16:28:26 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envpath)
 	free(cmdpath);
 	if (!is_command && !access(filename, X_OK) && ms_chk_is_dir(info, filename))
 		return (ms_strdup(filename));
-	errno = 0;
+	if (errno == EACCES)
+	{
+		ms_exeerror(info, filename, 4);
+		exit(126);
+	}
 	ms_exeerror(info, filename, is_command + 1);
 	exit(127);
 }
