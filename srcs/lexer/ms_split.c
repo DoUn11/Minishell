@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:42:13 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 13:34:26 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 16:18:20 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,11 @@ int	ms_split_quote(char **s, int *idx, char **word, t_list **ret)
 		{
 			quote = (*s)[(*idx)]; 
 			(*word) = ms_strjoin_f((*word), ms_strndup((*s), (*idx)));
-			printf("[%s]\n", *word);
 			(*s) += (*idx) + ((*word)[0] != '\0');
 			(*idx) = ((*word)[0] == '\0');
 			while ((*s)[(*idx)] != quote)
 				(*idx)++;
 			(*word) = ms_strjoin_f((*word), ms_strndup((*s), (*idx)));
-			printf("[%s]\n", *word);
 			(*s) += (*idx) + 1;
 			(*idx) = -1;
 		}
