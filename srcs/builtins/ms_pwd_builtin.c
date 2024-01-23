@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:20:01 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/18 14:34:30 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:08:44 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ms_pwd_builtin(void)
 {
 	char	buffer[PATH_MAX];
 
+	g_exit_status = 0;
 	if (getcwd(buffer, PATH_MAX) == NULL)
 	{
 		perror("getcwd");

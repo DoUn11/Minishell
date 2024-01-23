@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:21:01 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 21:45:06 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:09:01 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ms_unset_builtin(t_minishell *info, char **tk_list)
 {
+	g_exit_status = 0;
 	if (tk_list[1] == 0)
 		return ;
 	ms_unset_arg(info, tk_list);

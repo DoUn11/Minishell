@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:19:42 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/18 14:33:14 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:08:36 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ms_cd_buitin(t_minishell *info, char **tk_list)
 {
 	char	buffer[PATH_MAX];
 
+	g_exit_status = 0;
 	if (getcwd(buffer, PATH_MAX) == NULL)
 	{
 		perror("getcwd");

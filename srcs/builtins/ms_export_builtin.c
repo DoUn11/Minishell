@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:20:36 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/10 00:21:20 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:08:53 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ms_export_builtin(t_minishell *info, char **tk_list)
 {
+	g_exit_status = 0;
 	if (tk_list[1] == 0)
 		ms_export_no_arg(info);
 	else

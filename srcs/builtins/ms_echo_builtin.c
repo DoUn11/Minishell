@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:14:03 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 23:13:29 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:08:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ms_echo_builtin(char **tk_list)
 	int	option_exist;
 	int	idx;
 
+	g_exit_status = 0;
 	if (tk_list[1] == 0)
 	{
 		write(1, "\n", 1);
