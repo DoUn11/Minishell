@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 22:53:37 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 06:22:07 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ms_exeerror(t_minishell *info, char *filename, int errnum)
 	write(2, "minishell: ", 12);
 	write(2, filename, ms_strlen(filename));
 	write(2, ": ", 3);
+	if (errno == EACCES)
+		errnum = 4;
 	if (errnum != 0)
 		ms_file_error(filename, errnum);
 	else

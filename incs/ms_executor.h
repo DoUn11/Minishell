@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/21 09:35:42 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 06:44:02 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	ms_signal_handler(int signo);
 void	ms_set_signal(int sig_int, int sig_quit);
 
 int		ms_heredoc(t_minishell *info, t_redirect *tmp);
+void    ms_unlink_heredoc(t_minishell *info);
 
 #endif

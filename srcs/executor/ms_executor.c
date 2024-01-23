@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/23 16:05:36 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 06:44:19 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,18 @@ int	ms_get_redir_fd(t_minishell *info, t_redirect *redirect)
 	if (redirect->type == 2)
 		ret = open(redirect->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (redirect->type == 3)
+	{
 		ret = ms_heredoc(info, redirect);
+		if (ret != -1)
+		{
+			ms_lstadd(&info->unlink_list, info->temp_file);
+			if (!info->unlink_list)
+			{
+				perror("");
+				exit(ENOMEM);
+			}
+		}
+	}
 	if (redirect->type == 4)
 		ret = open(redirect->str, O_RDWR | O_CREAT | O_APPEND, 0644);
 	return (ret);
@@ -106,7 +117,7 @@ int	ms_get_redirects(t_minishell *info, t_list *redirects, int idx)
 		info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(info, redirtmp->redirect);
 		if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
 		{
-			ms_exeerror(info, redirtmp->redirect->str, errno);
+			ms_exeerror(info, redirtmp->redirect->str, 1);
 			exit(1);
 		}
 		redirtmp = redirtmp->next;
@@ -136,7 +147,9 @@ int	ms_executor(t_minishell *info)
 	char			**envpath;
 	int				idx;
 	int				pid;
+	int				flag;
 	
+	flag = 0;
 	printf("------ executor ------\n\n");
 	if (ms_get_pipe(info) == -1)
 		return (1);
@@ -146,11 +159,11 @@ int	ms_executor(t_minishell *info)
 	idx = 0;
 	while (tmp)
 	{
+		ms_get_redirects(info, ((t_cmd *)tmp->data)->redirects, idx);
 		pid = fork();
 		if (pid == 0) //child
 		{
 			ms_set_signal(DEFAULT, DEFAULT);
-			ms_get_redirects(info, ((t_cmd *)tmp->data)->redirects, idx);
 			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt == 1)
 				exit(0);
 			if (((t_cmd *)tmp->data)->cmdargs[0] == NULL)
@@ -178,12 +191,24 @@ int	ms_executor(t_minishell *info)
 				close(info->pipes[idx - 1][1]);
 			}
 			if (ms_check_builtin_is(((t_cmd *)tmp->data)->cmdargs) && info->cmdcnt == 1)
+			{
+				flag = 1;
 				ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid);
+			}
 		}
 		tmp = tmp->next;
 		idx++;
 	}
-	ms_wait_child(info);
+	for(int i = 0; i < info->cmdcnt; i++)
+	{
+		if (info->fds[i][0] != 0)
+			close(info->fds[i][0]);
+		if (info->fds[i][1] != 1)
+			close(info->fds[i][1]);
+	}
+	ms_unlink_heredoc(info);
+	if (!flag)
+		ms_wait_child(info);
 	errno = g_exit_status;
 	return (0);
 }

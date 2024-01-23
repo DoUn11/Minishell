@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 08:17:07 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/13 14:25:34 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 06:43:46 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ int	ms_temp_utils(t_minishell *info)
 		i++;
 	}
 	return (-1);
+}
+
+void	ms_unlink_heredoc(t_minishell *info)
+{
+	t_unlinklist	*tmp;
+
+	tmp = info->unlink_list;
+	while (tmp)
+	{
+		unlink(tmp->data);
+		tmp = tmp->next;
+	}
 }
