@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:21:39 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/23 17:09:23 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:12:13 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid)
 	int	flag;
 	int	arg_size;
 
-	g_exit_status = 0;
 	flag = 0;
 	arg_size = ms_get_listsize(tk_list);
 	if (pid != 0 && tk_list[1] == 0)
