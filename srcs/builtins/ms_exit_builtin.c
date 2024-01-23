@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:21:39 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/18 13:52:54 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:19:27 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid)
 	if (tk_list[1] == 0)
 		exit(g_exit_status);
 	g_exit_status = ms_atol(tk_list[1], &flag);
+	if (pid != 0)
+		write(2, "exit\n", 5);
 	if (flag == 1)
 	{
 		ms_no_numeric_print(tk_list[1]);
@@ -36,8 +38,6 @@ void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid)
 		ms_many_arg_print();
 		return ;
 	}
-	if (pid != 0)
-		write(2, "exit\n", 5);
 	exit(g_exit_status);
 }
 
