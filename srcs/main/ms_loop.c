@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/21 10:39:16 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:48:48 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ms_loop(t_minishell *info)
 		{
 			write(2, "\033[1A\033[11Cexit\n", 15);
 			ms_reset_term_mode(info);
-			exit(-1);
+			exit(g_exit_status);
 		}
 		if (info->readline[0] != '\0')
 			add_history(info->readline);

@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:42:13 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 13:44:10 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 13:34:26 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ms_split_pipe(t_list **ret, char **str, int *idx, char **word)
 	return (0);
 }
 
-int	ms_split_quote(char **s, int *idx, char **word, char *str, t_list **ret)
+int	ms_split_quote(char **s, int *idx, char **word, t_list **ret)
 {
 	char	quote;
 
@@ -63,20 +63,22 @@ int	ms_split_quote(char **s, int *idx, char **word, char *str, t_list **ret)
 			break ;
 		if ((*s)[(*idx)] == '\'' || (*s)[(*idx)] == '\"')
 		{
-			quote = (*s)[(*idx)];
+			quote = (*s)[(*idx)]; 
 			(*word) = ms_strjoin_f((*word), ms_strndup((*s), (*idx)));
+			printf("[%s]\n", *word);
 			(*s) += (*idx) + ((*word)[0] != '\0');
 			(*idx) = ((*word)[0] == '\0');
 			while ((*s)[(*idx)] != quote)
 				(*idx)++;
 			(*word) = ms_strjoin_f((*word), ms_strndup((*s), (*idx)));
+			printf("[%s]\n", *word);
 			(*s) += (*idx) + 1;
 			(*idx) = -1;
 		}
 		quote = 0;
 		(*idx)++;
 	}
-	*word = ms_strjoin_f(*word, ms_strndup(str, *idx));
+	*word = ms_strjoin_f(*word, ms_strndup((*s), *idx));
 	if (!*word)
 		return (1);
 	ms_lstadd(ret, *word);
@@ -99,7 +101,7 @@ t_list	*ms_split(char *str)
 			return (NULL);
 		if (str[idx] && !ms_iswhitespace(str[idx]) && \
 			str[idx] != '<' && str[idx] != '>' && \
-			ms_split_quote(&str, &idx, &word, str, &ret))
+			ms_split_quote(&str, &idx, &word, &ret))
 				return (NULL);
 		if (word && !word[0])
 			free(word);

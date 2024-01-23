@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_convert.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:36:38 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 16:40:01 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:56:39 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,17 @@ char	*ms_convert(t_minishell *info, char *str)
 {
 	t_quoteinfo		quotes;
 	t_convertinfo	c_info;
+	int				limiter;
 
 	ms_convert_reset(&quotes, &c_info);
+	limiter = 0;
 	while (str && str[c_info.idx])
 	{
 		if (str[c_info.idx] == '#' && !(quotes.squote + quotes.dquote) \
 		&& (!c_info.idx || ms_iswhitespace(str[c_info.idx - 1])))
 			break ;
 		ms_toggle_quote(&quotes, str[c_info.idx]);
-		if (str[c_info.idx] == '$' && !quotes.squote)
+		if (str[c_info.idx] == '$' && !quotes.squote && !limiter)
 		{
 			ms_dollar_convert(&c_info, &str);
 			if (c_info.var == NULL)
@@ -56,6 +58,16 @@ char	*ms_convert(t_minishell *info, char *str)
 				continue ;
 			}
 			ms_convert_1(info, &c_info);
+		}
+		if (limiter && !(quotes.squote + quotes.dquote) && ms_iswhitespace(str[c_info.idx]))
+			limiter = 0;
+		if (!(quotes.squote + quotes.dquote + limiter) && !ms_strncmp(str + c_info.idx, "<<", 2))
+		{
+			c_info.idx += 2;
+			limiter = 1;
+			while (ms_iswhitespace(str[c_info.idx]))
+				c_info.idx++;
+			c_info.idx--;
 		}
 		c_info.idx++;
 	}

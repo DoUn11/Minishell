@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/21 10:21:39 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/23 13:38:04 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envpath)
 
 	is_command = ms_iscommand(filename);
 	cmdpath = ms_strjoin_f(ms_strdup("/"), ms_strdup(filename));
-	while (is_command && *envpath)
+	while (is_command && envpath && *envpath)
 	{
 		cmdtmp = ms_strjoin_f(ms_strdup(*envpath), ms_strdup(cmdpath));
 		if (!access(cmdtmp, X_OK))
