@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:16:10 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/23 15:39:36 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 01:30:06 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_executor.h"
+
+char	*ms_append_char(char *str, char c)
+{
+	char	*ret;
+	int		str_len;
+	int		i;
+
+	str_len = ms_strlen(str);
+	i = 0;
+	ret = malloc(sizeof(char) * (str_len + 2));
+	while (i < str_len)
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	ret[i] = c;
+	i++;
+	ret[i] = '\0';
+	if (str)
+		free(str);
+	return (ret);
+}
 
 char	*ms_hdc_convert(t_minishell *info, char *line)
 {
@@ -38,11 +60,14 @@ char	*ms_hdc_convert(t_minishell *info, char *line)
 			start = idx + 1;
 			ret = ms_strjoin_f(ret, ms_getvardata(info, var));
 		}
+		else
+			ret = ms_append_char(ret, line[idx]);
 		idx++;
 	}
 	free(line);
 	return (ret);
 }
+
 void	input_stream(t_minishell *info, t_redirect	*tmp, int temp_fd)
 {
 	char	*line;
@@ -73,7 +98,6 @@ void	input_stream(t_minishell *info, t_redirect	*tmp, int temp_fd)
 int	ms_heredoc(t_minishell *info, t_redirect *tmp)
 {
 	int	temp_fd;
-
 
 	temp_fd = ms_make_temp(info);
 	if (temp_fd == -1)
