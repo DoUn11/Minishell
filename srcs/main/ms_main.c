@@ -6,11 +6,12 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/19 13:41:44 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 07:48:34 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
 
 int	main(int argc, char *argv[], char *envp[])
 {

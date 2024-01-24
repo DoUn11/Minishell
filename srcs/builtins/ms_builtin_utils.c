@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:30:05 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 19:25:42 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 08:10:32 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ms_double_malloc_free(char ***tmp)
 	int	i;
 
 	i = 0;
-	while ((*tmp)[i] != 0)
+	while ((*tmp) && (*tmp)[i] != 0)
 	{
 		free((*tmp)[i]);
 		i++;

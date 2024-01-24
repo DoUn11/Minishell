@@ -6,12 +6,12 @@
 #    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/21 04:18:14 by doukim           ###   ########.fr        #
+#    Updated: 2024/01/24 09:56:22 by doukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
-CC		:= cc -fsanitize=address
+CC		:= cc -g
 INCLUDE	:= -I./incs/
 #CFLAGS	:= -Wall -Wextra -Werror
 
@@ -41,6 +41,7 @@ SRCS	:= $(SRCDIR)builtins/ms_builtin_utils.c\
 	$(SRCDIR)lexer/ms_split.c \
 	$(SRCDIR)lexer/ms_tokenizer.c \
 	$(SRCDIR)utils/ms_getenv.c \
+	$(SRCDIR)utils/ms_free.c \
 	$(SRCDIR)utils/ms_libs.c \
 	$(SRCDIR)utils/ms_libs2.c \
 	$(SRCDIR)utils/ms_libs3.c \

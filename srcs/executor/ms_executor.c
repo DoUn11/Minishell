@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 06:44:19 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:17:51 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ms_get_pipe(t_minishell *info)
 {
 	int	idx;
 
-	info->pipes = malloc(sizeof(int *) * info->cmdcnt - 1);
+	info->pipes = malloc(sizeof(int *) * info->cmdcnt);
 	if (!info->pipes)
 		return (-1);
 	idx = 0;
@@ -29,6 +29,7 @@ int	ms_get_pipe(t_minishell *info)
 			return (-1);
 		idx++;
 	}
+	info->pipes[idx] = NULL;
 	return (0);
 }
 
@@ -36,7 +37,7 @@ int	ms_get_fds(t_minishell *info)
 {
 	int	idx;
 
-	info->fds = malloc(sizeof(int *) * info->cmdcnt);
+	info->fds = malloc(sizeof(int *) * (info->cmdcnt + 1));
 	if (!info->fds)
 		return (-1);
 	idx = 0;
@@ -54,6 +55,7 @@ int	ms_get_fds(t_minishell *info)
 		printf("{%d %d}\n", info->fds[idx][0], info->fds[idx][1]);
 		idx++;
 	}
+	info->fds[idx] = NULL;
 	return (0);
 }
 
@@ -118,7 +120,7 @@ int	ms_get_redirects(t_minishell *info, t_list *redirects, int idx)
 		if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
 		{
 			ms_exeerror(info, redirtmp->redirect->str, 1);
-			exit(1);
+			return (-1);
 		}
 		redirtmp = redirtmp->next;
 	}
@@ -159,7 +161,8 @@ int	ms_executor(t_minishell *info)
 	idx = 0;
 	while (tmp)
 	{
-		ms_get_redirects(info, ((t_cmd *)tmp->data)->redirects, idx);
+		if (ms_get_redirects(info, ((t_cmd *)tmp->data)->redirects, idx) == -1)
+			break ;
 		pid = fork();
 		if (pid == 0) //child
 		{
@@ -175,7 +178,7 @@ int	ms_executor(t_minishell *info)
 				exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
 			cmdtmp = ms_get_cmdpath(info, ((t_cmd *)tmp->data)->cmdargs[0], envpath);
-			free(envpath);
+			ms_double_malloc_free(&envpath);
 			if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
 			{
 				ms_exeerror(info, NULL, 0);

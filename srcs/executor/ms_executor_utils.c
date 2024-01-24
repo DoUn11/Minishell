@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 08:17:07 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 06:43:46 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 09:55:11 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,16 @@ int	ms_temp_utils(t_minishell *info)
 void	ms_unlink_heredoc(t_minishell *info)
 {
 	t_unlinklist	*tmp;
+	t_unlinklist	*tmp2;
 
 	tmp = info->unlink_list;
 	while (tmp)
 	{
 		unlink(tmp->data);
-		tmp = tmp->next;
+		free(tmp->data);
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
 	}
+	info->unlink_list = NULL;
 }

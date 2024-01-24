@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:16:10 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 01:30:06 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 09:42:54 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*ms_hdc_convert(t_minishell *info, char *line)
 			}
 			start = idx + 1;
 			ret = ms_strjoin_f(ret, ms_getvardata(info, var));
+			free(var);
 		}
 		else
 			ret = ms_append_char(ret, line[idx]);

@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/16 06:03:38 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 06:55:37 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ unsigned char	g_exit_status;
 # define DEFAULT 1
 # define IGNORE 2
 
+void lc(void);
 void	ms_loop(t_minishell *info);
 
 #endif
