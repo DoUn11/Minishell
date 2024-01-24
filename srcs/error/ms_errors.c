@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 10:50:22 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:59:49 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ms_parerror(t_minishell *info, int *error)
 		ms_perror(strerror(errno));
 }
 
-void	ms_file_error(char *filename, int errnum)
+void	ms_file_error(int errnum)
 {
 	if (errnum == 1)
 		write(2, "No such file or directory\n", 27);
@@ -66,7 +66,7 @@ void	ms_file_error(char *filename, int errnum)
 		write(2, "Permission denied\n", 19);
 }
 
-void	ms_exeerror(t_minishell *info, char *filename, int errnum)
+void	ms_exeerror(char *filename, int errnum)
 {
 	write(2, "minishell: ", 12);
 	write(2, filename, ms_strlen(filename));
@@ -74,7 +74,7 @@ void	ms_exeerror(t_minishell *info, char *filename, int errnum)
 	if (errno == EACCES)
 		errnum = 4;
 	if (errnum != 0)
-		ms_file_error(filename, errnum);
+		ms_file_error(errnum);
 	else
 		perror("");
 }

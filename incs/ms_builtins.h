@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:49 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/21 00:32:53 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:55:05 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ms_reduction_utils(char ***envp, char *s, char ***re_envp, int (*i)[2]);
 void	ms_env_builtin(t_minishell *info, char **tk_list);
 
 //exit
-void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid);
+void	ms_exit_builtin(char **tk_list, int pid);
 void	ms_no_numeric_print(char *str);
 void	ms_many_arg_print(void);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 10:49:44 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:04:05 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ms_get_fds(t_minishell *info)
 	return (0);
 }
 
-void	ms_wait_child(t_minishell *info)
+void	ms_wait_child(void)
 {
 	int		status;
 	int		signo;
@@ -118,7 +118,7 @@ int	ms_get_redirects(t_minishell *info, t_list *redirects, int idx)
 		info->fds[idx][(redirtmp->redirect->type + 1) % 2] = ms_get_redir_fd(info, redirtmp->redirect);
 		if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
 		{
-			ms_exeerror(info, redirtmp->redirect->str, 1);
+			ms_exeerror(redirtmp->redirect->str, 1);
 			g_exit_status = 1;
 			return (-1);
 		}
@@ -176,11 +176,11 @@ int	ms_executor(t_minishell *info)
 			if (ms_check_builtin(info, ((t_cmd *)tmp->data)->cmdargs, pid))
 				exit(g_exit_status);
 			envpath = ms_get_envpath(info->envp);
-			cmdtmp = ms_get_cmdpath(info, ((t_cmd *)tmp->data)->cmdargs[0], envpath);
+			cmdtmp = ms_get_cmdpath(((t_cmd *)tmp->data)->cmdargs[0], envpath);
 			ms_double_malloc_free(&envpath);
 			if (execve(cmdtmp, ((t_cmd *)tmp->data)->cmdargs, info->envp) == -1)
 			{
-				ms_exeerror(info, NULL, 0);
+				ms_exeerror(NULL, 0);
 				exit(errno);
 			}
 		}
@@ -210,7 +210,7 @@ int	ms_executor(t_minishell *info)
 	}
 	ms_unlink_heredoc(info);
 	if (!flag)
-		ms_wait_child(info);
+		ms_wait_child();
 	errno = g_exit_status;
 	return (0);
 }

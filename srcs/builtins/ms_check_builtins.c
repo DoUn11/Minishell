@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:18:21 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/23 17:11:31 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:55:34 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ms_check_builtin(t_minishell *info, char **cmdargs, int pid)
 	else if (!ms_strncmp(builtin_cmd, "env", 4))
 		ms_env_builtin(info, cmdargs);
 	else if (!ms_strncmp(builtin_cmd, "exit", 5))
-		ms_exit_builtin(info, cmdargs, pid);
+		ms_exit_builtin(cmdargs, pid);
 	else
 		return (0);
 	return (1);

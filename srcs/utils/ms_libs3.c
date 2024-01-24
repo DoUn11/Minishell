@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 18:50:39 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/18 16:14:05 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:58:57 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ms_strjoin_f(char *s1, char *s2)
 
 int	ms_iswhitespace(int c)
 {
-	if (9 <= c && c <= 13 || c == 32)
+	if ((9 <= c && c <= 13)|| c == 32)
 		return (1);
 	return (0);
 }

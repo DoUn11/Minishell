@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 23:02:57 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:03:27 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ms_iscommand(char *filename)
 	return (1);
 }
 
-int	ms_chk_is_dir(t_minishell *info, char *filename)
+int	ms_chk_is_dir(char *filename)
 {
 	struct stat	filestat;
 
@@ -45,19 +45,19 @@ int	ms_chk_is_dir(t_minishell *info, char *filename)
 	errno = 0;
 	if (S_ISDIR(filestat.st_mode))
 	{
-		ms_exeerror(info, filename, 3);
+		ms_exeerror(filename, 3);
 		exit(126);
 	}
 	return (1);
 }
 
-void	ms_get_cmdpath_permissiondenied_util(t_minishell *info, char *filename)
+void	ms_get_cmdpath_permissiondenied_util(char *filename)
 {
-	ms_exeerror(info, filename, 4);
+	ms_exeerror(filename, 4);
 	exit(126);
 }
 
-char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envpath)
+char	*ms_get_cmdpath(char *filename, char **envpath)
 {
 	int		is_command;
 	char	*cmdpath;
@@ -77,10 +77,10 @@ char	*ms_get_cmdpath(t_minishell *info, char *filename, char **envpath)
 		free(cmdtmp);
 	}
 	free(cmdpath);
-	if (!is_command && !access(filename, X_OK) && ms_chk_is_dir(info, filename))
+	if (!is_command && !access(filename, X_OK) && ms_chk_is_dir(filename))
 		return (ms_strdup(filename));
 	if (errno == EACCES)
-		ms_get_cmdpath_permissiondenied_util(info, filename);
-	ms_exeerror(info, filename, is_command + 1);
+		ms_get_cmdpath_permissiondenied_util(filename);
+	ms_exeerror(filename, is_command + 1);
 	exit(127);
 }

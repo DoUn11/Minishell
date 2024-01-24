@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:30:54 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/09 23:00:04 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:54:18 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ms_memory_reduction(char ***envp, char *str)
 {
 	int		idx[2];
 	int		envp_size;
-	char	*envp_name;
 	char	**re_envp;
 
 	idx[0] = 0;

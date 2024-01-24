@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 00:21:39 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/23 17:12:13 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:56:07 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned char	ms_atol(char *str, int *flag);
 
-void	ms_exit_builtin(t_minishell *info, char **tk_list, int pid)
+void	ms_exit_builtin(char **tk_list, int pid)
 {
 	int	flag;
 	int	arg_size;

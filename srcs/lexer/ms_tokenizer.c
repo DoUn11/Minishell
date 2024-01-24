@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 08:22:31 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 10:26:38 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:57:55 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ms_get_type(char *str)
 static t_token	*ms_get_token(char *str)
 {
 	t_token	*ret;
-	int		idx;
 
 	ret = (t_token *)malloc(sizeof(t_token));
 	if (!ret)

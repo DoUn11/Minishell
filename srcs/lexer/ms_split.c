@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:42:13 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/23 23:58:53 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:57:34 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ms_split_wspace_redir(t_list **ret, char **str, int *idx, char **word)
 	(*str) += (*idx);
 	*idx = 0;
 	(*word) = ms_strdup("");
-	while ((*str)[*idx] && (*str)[*idx] == '<' || (*str)[*idx] == '>')
+	while ((*str)[*idx] && ((*str)[*idx] == '<' || (*str)[*idx] == '>'))
 	{
 		(*idx) += 1 + ((*str)[*idx + 1] == (*str)[*idx]);
 		(*word) = ms_strjoin_f((*word), ms_strndup((*str), *idx));
