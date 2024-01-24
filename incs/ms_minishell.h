@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:46 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 06:55:37 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:07:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ unsigned char	g_exit_status;
 # define DEFAULT 1
 # define IGNORE 2
 
-void lc(void);
 void	ms_loop(t_minishell *info);
 
 #endif

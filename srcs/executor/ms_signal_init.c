@@ -3,56 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_signal_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 15:20:17 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/23 16:33:12 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:22:45 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_executor.h"
-
-void	ms_save_input_mode(struct termios *original_term)
-{
-	if (tcgetattr(STDIN_FILENO, original_term) == -1)
-	{
-		perror("tcgetattr");
-		exit(1);
-	}
-}
-
-void	ms_reset_term_mode(t_minishell *info)
-{
-	struct termios	original_term;
-
-	original_term = info->old_term;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &original_term) == -1)
-	{
-		perror("tcsetattr");
-		exit(1);
-	}
-}
-
-void	ms_set_input_mode(t_minishell *info)
-{
-	info->new_term = info->old_term;
-	info->new_term.c_lflag &= ~(IEXTEN | ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &info->new_term) == -1)
-	{
-		perror("tcsetattr");
-		exit(1);
-	}
-	info->errnum = 0;
-}
-void	ms_set_execute_mode(t_minishell *info)
-{
-	info->new_term.c_lflag |= (IEXTEN | ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &info->new_term) == -1)
-	{
-		perror("tcsetattr");
-		exit(1);
-	}
-}
 
 void	ms_signal_handler(int signo)
 {
@@ -86,43 +44,3 @@ void	ms_set_signal(int sig_int, int sig_quit)
 	if (sig_quit == SHELL)
 		signal(SIGQUIT, ms_signal_handler);
 }
-
-/*
-자식에선 시그널 디폴트 값으로 
-ms_set_signal(DEFAULT, DEFAULT);
-pid = fork();
-if (pid == 0)
-{
-
-}
-else   부모에선 시그널 무시 
-{
-	closefd;
-	ms_set_signal(IGNORE, IGNORE); 
-}
-*/
-
-/* WIFSIGNALED 매크로를 사용하면 시그널에 의해 종료되었는지를 확인할 수 있고, WTERMSIG 매크로를 사용하면 어떤 시그널에 의한 건지를 알 수 있다. 
-void	wait_child(void)
-{
-	int		status;
-	int		signo;
-	int		i;
-
-	i = 0;
-	while (wait(&status) != -1)
-	{
-		if (WIFSIGNALED(status))
-		{
-			signo = WTERMSIG(status);
-			if (signo == SIGINT && i++ == 0)
-				write(2, "^C\n", 3);
-			else if (signo == SIGQUIT && i++ == 0)
-				write(2, "^\\Quit: 3\n", 10);
-			g_exit_status = 128 + signo;
-		}
-		else
-			g_exit_status = WEXITSTATUS(status);
-	}
-}
-*/

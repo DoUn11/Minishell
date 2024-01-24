@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ms_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 10:48:23 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:11:00 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-void lc()
-{
-	system("leaks --list minishell");
-}
+// void lc()
+// {
+// 	system("leaks --list minishell");
+// }
 
 void	ms_free_info(t_minishell *info)
 {
@@ -26,13 +26,12 @@ void	ms_free_info(t_minishell *info)
 	ms_double_malloc_free((char ***)&info->fds);
 	ms_double_malloc_free((char ***)&info->pipes);
 }
+
 void	ms_loop(t_minishell *info)
 {
-	int		error;
-	
 	while (1)
 	{
-		error = 0;
+		info->error = 0;
 		ms_set_input_mode(info);
 		ms_set_signal(SHELL, SHELL);
 		info->readline = readline(READLINE_MSG);
@@ -44,15 +43,14 @@ void	ms_loop(t_minishell *info)
 		}
 		if (info->readline[0] != '\0')
 			add_history(info->readline);
-		if (!error && (errno || ms_lexer(info)))
-			ms_lexerror(info, &error);
-		if (!error && (errno || ms_parser(info)))
-			ms_parerror(info, &error);
+		if (!info->error && (errno || ms_lexer(info)))
+			ms_lexerror(info, &info->error);
+		if (!info->error && (errno || ms_parser(info)))
+			ms_parerror(info, &info->error);
 		ms_set_execute_mode(info);
-		if (!error)
+		if (!info->error)
 			ms_executor(info);
 		ms_reset_term_mode(info);
 		ms_free_info(info);
-		//lc();
 	}
 }

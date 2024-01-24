@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 06:35:28 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:09:57 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_convertinfo
 typedef struct s_unlinklist
 {
 	char				*data;
-	struct s_unlinklist *next;
+	struct s_unlinklist	*next;
 }	t_unlinklist;
 
 typedef struct s_minishell
@@ -86,6 +86,7 @@ typedef struct s_minishell
 	struct termios	old_term;
 	struct termios	new_term;
 	t_unlinklist	*unlink_list;
+	int				error;
 }	t_minishell;
 
 #endif

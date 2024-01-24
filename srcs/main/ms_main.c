@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:27:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 07:48:34 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:11:02 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -31,6 +30,5 @@ int	main(int argc, char *argv[], char *envp[])
 	ms_getenv(&ms_info, envp);
 	ms_getenv_copy(&ms_info, envp);
 	ms_loop(&ms_info);
-	//ms_reset_input_mode(&ms_info.term);
 	exit(-1);
 }

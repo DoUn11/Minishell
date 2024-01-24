@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cmdlist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:48:17 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 07:04:50 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:17:12 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,39 @@ static t_redirect	*ms_get_redirect(t_tokenlist *lst)
 	return (ret);
 }
 
+int	ms_add_cmdline(t_minishell *info, t_tokenlist **tmp, t_cmd *cmdline)
+{
+	int			idx;
+	t_redirect	*redirect;
+
+	idx = 0;
+	while ((*tmp)->token->type != T_PIPE && (*tmp)->token->type != T_NULL)
+	{
+		if (T_L <= (*tmp)->token->type && (*tmp)->token->type <= T_RR)
+		{
+			redirect = ms_get_redirect((*tmp));
+			if (redirect == NULL)
+				return (1);
+			ms_lstadd(&cmdline->redirects, redirect);
+			(*tmp) = (*tmp)->next->next;
+			continue ;
+		}
+		cmdline->cmdargs[idx++] = ms_strdup((*tmp)->token->str);
+		(*tmp) = (*tmp)->next;
+	}
+	cmdline->cmdargs[idx] = NULL;
+	(*tmp) = (*tmp)->next;
+	ms_lstadd(&info->cmdlist, cmdline);
+	info->cmdcnt++;
+	return (0);
+}
+
 int	ms_cmdlist(t_minishell *info)
 {
 	int				cmdargc;
-	int				idx;
 	t_tokenlist		*tmp;
 	t_cmd			*cmdline;
-	t_redirect		*redirect;
-	
+
 	info->cmdlist = NULL;
 	info->cmdcnt = 0;
 	tmp = (t_tokenlist *)info->tokenlist;
@@ -76,25 +101,8 @@ int	ms_cmdlist(t_minishell *info)
 		cmdline = ms_new_cmd_line(cmdargc);
 		if (cmdline == NULL)
 			return (1);
-		idx = 0;
-		while (tmp->token->type != T_PIPE && tmp->token->type != T_NULL)
-		{
-			if (T_L <= tmp->token->type && tmp->token->type <= T_RR)
-			{
-				redirect = ms_get_redirect(tmp);
-				if (redirect == NULL)
-					return (1);
-				ms_lstadd(&cmdline->redirects, redirect);
-				tmp = tmp->next->next;
-				continue ;
-			}
-			cmdline->cmdargs[idx++] = ms_strdup(tmp->token->str);
-			tmp = tmp->next;
-		}
-		cmdline->cmdargs[idx] = NULL;
-		tmp = tmp->next;
-		ms_lstadd(&info->cmdlist, cmdline);
-		info->cmdcnt++;
+		if (ms_add_cmdline(info, &tmp, cmdline) == 1)
+			return (1);
 	}
 	if (errno)
 		return (1);
