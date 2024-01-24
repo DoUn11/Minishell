@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 10:17:51 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:23:10 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	ms_get_redirects(t_minishell *info, t_list *redirects, int idx)
 		if (info->fds[idx][(redirtmp->redirect->type + 1) % 2] == -1)
 		{
 			ms_exeerror(info, redirtmp->redirect->str, 1);
+			g_exit_status = 1;
 			return (-1);
 		}
 		redirtmp = redirtmp->next;
