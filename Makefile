@@ -6,12 +6,12 @@
 #    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/24 09:56:22 by doukim           ###   ########.fr        #
+#    Updated: 2024/01/24 10:34:48 by doukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
-CC		:= cc -g
+CC		:= cc -g -fsanitize=address
 INCLUDE	:= -I./incs/
 #CFLAGS	:= -Wall -Wextra -Werror
 

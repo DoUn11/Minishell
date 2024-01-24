@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:34:41 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 10:23:10 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:49:44 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ms_get_fds(t_minishell *info)
 			info->fds[idx][0] = info->pipes[idx - 1][0];
 		if (idx != info->cmdcnt - 1)
 			info->fds[idx][1] = info->pipes[idx][1];
-		printf("{%d %d}\n", info->fds[idx][0], info->fds[idx][1]);
 		idx++;
 	}
 	info->fds[idx] = NULL;
@@ -95,7 +94,7 @@ int	ms_get_redir_fd(t_minishell *info, t_redirect *redirect)
 		ret = ms_heredoc(info, redirect);
 		if (ret != -1)
 		{
-			ms_lstadd(&info->unlink_list, info->temp_file);
+			ms_lstadd((t_list **)&info->unlink_list, info->temp_file);
 			if (!info->unlink_list)
 			{
 				perror("");
@@ -153,7 +152,6 @@ int	ms_executor(t_minishell *info)
 	int				flag;
 	
 	flag = 0;
-	printf("------ executor ------\n\n");
 	if (ms_get_pipe(info) == -1)
 		return (1);
 	if (ms_get_fds(info) == -1)

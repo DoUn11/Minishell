@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:36:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 07:02:11 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:50:58 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,16 @@
 int	ms_lexer(t_minishell *info)
 {
 	t_list		*splited;
-	t_list		*tmp;
 
 	info->converted = ms_convert(info, info->readline);
 	if (!info->converted)
 		return (1);
-	printf("[convert] : %s\n", info->converted);
 	splited = ms_split(info->converted);
 	if (!splited)
 		return (1);
-	printf("[splited]\n");
-	tmp = splited;
-	while (tmp)
-	{
-		printf("{%s}\n", tmp->data);
-		tmp = tmp->next;
-	}
 	info->tokenlist = ms_tokenize(splited);
 	if (!info->tokenlist)
 		return (1);
-	ms_lstfree(splited);
+	ms_lstfree(&splited);
 	return (0);
 }

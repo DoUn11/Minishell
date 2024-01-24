@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:03:18 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 09:56:37 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:48:23 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	ms_free_info(t_minishell *info)
 {
 	free(info->readline);
 	free(info->converted);
-	ms_tokenlstfree(info->tokenlist);
-	ms_cmdfree(info->cmdlist);
-	ms_double_malloc_free(&info->fds);
-	ms_double_malloc_free(&info->pipes);
+	ms_tokenlstfree(&info->tokenlist);
+	ms_cmdfree(&info->cmdlist);
+	ms_double_malloc_free((char ***)&info->fds);
+	ms_double_malloc_free((char ***)&info->pipes);
 }
 void	ms_loop(t_minishell *info)
 {
@@ -53,6 +53,6 @@ void	ms_loop(t_minishell *info)
 			ms_executor(info);
 		ms_reset_term_mode(info);
 		ms_free_info(info);
-		lc();
+		//lc();
 	}
 }

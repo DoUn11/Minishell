@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 01:16:11 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 06:22:07 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/24 10:50:22 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ms_parerror(t_minishell *info, int *error)
 	if (errno == 0)
 	{
 		ms_msherror(info->errnum);
-		errno = 255;
-		g_exit_status = 255;
+		errno = 258;
+		g_exit_status = 2;
 	}
 	else
 		ms_perror(strerror(errno));
