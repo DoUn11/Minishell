@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_convert.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:36:38 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 00:22:10 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:25:42 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int	ms_chk_quotes_closed(t_minishell *info, t_quoteinfo q, char *ret)
 	return (0);
 }
 
-int	ms_convertdollar_util(t_convertinfo *c_info, char **str)
+int	ms_convertdollar_util(t_convertinfo *c_info, char **str, t_quoteinfo *q)
 {
 	ms_dollar_convert(c_info, str);
 	if (c_info->var == NULL)
 	{
-		ms_check_var_null(c_info, str);
+		ms_check_var_null(c_info, str, q);
 		return (1);
 	}
 	return (0);
@@ -74,7 +74,7 @@ char	*ms_convert(t_minishell *info, char *str)
 		ms_toggle_quote(&quotes, str[c_info.idx]);
 		if (str[c_info.idx] == '$' && !quotes.squote && !limiter)
 		{
-			if (ms_convertdollar_util(&c_info, &str) == 1)
+			if (ms_convertdollar_util(&c_info, &str, &quotes) == 1)
 				continue ;
 			ms_convert_1(info, &c_info);
 		}

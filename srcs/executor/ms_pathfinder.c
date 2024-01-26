@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pathfinder.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:41:36 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 11:03:27 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:09:24 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,16 @@ int	ms_chk_is_dir(char *filename)
 
 void	ms_get_cmdpath_permissiondenied_util(char *filename)
 {
-	ms_exeerror(filename, 4);
-	exit(126);
+	if (!ms_strncmp(filename, "", 1))
+	{
+		ms_exeerror(filename, 2);
+		exit(126);
+	}
+	else
+	{
+		ms_exeerror(filename, 4);
+		exit(127);
+	}
 }
 
 char	*ms_get_cmdpath(char *filename, char **envpath)
@@ -65,7 +73,7 @@ char	*ms_get_cmdpath(char *filename, char **envpath)
 
 	is_command = ms_iscommand(filename);
 	cmdpath = ms_strjoin_f(ms_strdup("/"), ms_strdup(filename));
-	while (is_command && envpath && *envpath)
+	while (is_command && envpath && *envpath && ms_strncmp(filename, "", 1))
 	{
 		cmdtmp = ms_strjoin_f(ms_strdup(*envpath), ms_strdup(cmdpath));
 		if (!access(cmdtmp, X_OK))

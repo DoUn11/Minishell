@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 20:46:45 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 10:04:19 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/26 20:25:27 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	ms_dollar_convert(t_convertinfo *c_info, char **str)
 	c_info->var = ms_getvarname(*str, &(c_info->idx));
 }
 
-void	ms_check_var_null(t_convertinfo *c_info, char **str)
+void	ms_check_var_null(t_convertinfo *c_info, char **str, t_quoteinfo *q)
 {
-	if ((*str)[c_info->idx] != '\"' && (*str)[c_info->idx] != '\'')
+	if (((*str)[c_info->idx] != '\"' && (*str)[c_info->idx] != '\'') \
+	|| q->dquote)
 		c_info->ret = ms_strjoin_f(c_info->ret, ms_strdup("$"));
 	c_info->start = c_info->idx;
 }
