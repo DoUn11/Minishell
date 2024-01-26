@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/26 17:53:30 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/26 22:15:14 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ typedef struct s_hdc
 	char	*ret;
 	char	*var;
 }	t_hdc;
+
+typedef struct s_heredoc
+{
+	int	temp_fd;
+	int	pid;
+	int	status;
+}	t_heredoc;
 
 typedef struct s_executor
 {

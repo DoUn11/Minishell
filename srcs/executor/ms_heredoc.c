@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:16:10 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/26 20:01:54 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/26 22:15:06 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,28 @@ void	input_stream(t_minishell *info, t_redirect	*tmp, int temp_fd)
 
 int	ms_heredoc(t_minishell *info, t_redirect *tmp)
 {
-	int	temp_fd;
-	int	pid;
-	int	status;
+	t_heredoc	hdcinfo;
 
-	temp_fd = ms_make_temp(info);
-	if (temp_fd == -1)
+	hdcinfo.temp_fd = ms_make_temp(info);
+	if (hdcinfo.temp_fd == -1)
 	{
 		perror("fail make temp");
-		exit(1);
+		return (-1);
 	}
-	pid = fork();
-	if (pid == 0)
-		input_stream(info, tmp, temp_fd);
+	hdcinfo.pid = fork();
+	if (hdcinfo.pid == 0)
+		input_stream(info, tmp, hdcinfo.temp_fd);
 	else
 	{
 		ms_set_signal(IGNORE, IGNORE);
-		if (wait(&status) != -1 && WIFSIGNALED(status))
+		if (wait(&hdcinfo.status) != -1 && WIFSIGNALED(hdcinfo.status))
 		{
+			ms_lstadd((t_list **)&info->unlink_list, info->temp_file);
 			write(1, "\n", 1);
 			g_exit_status = 5;
 			return (-1);
 		}
 	}
-	close(temp_fd);
+	close(hdcinfo.temp_fd);
 	return (open(info->temp_file, O_RDONLY, 0644));
 }
