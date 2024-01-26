@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 02:35:23 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 11:09:57 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:53:30 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,23 @@ typedef struct s_unlinklist
 	char				*data;
 	struct s_unlinklist	*next;
 }	t_unlinklist;
+
+typedef struct s_hdc
+{
+	int		idx;
+	int		start;
+	char	*ret;
+	char	*var;
+}	t_hdc;
+
+typedef struct s_executor
+{
+	char			*cmdtmp;
+	char			**envpath;
+	int				idx;
+	int				pid;
+	int				flag;
+}	t_exe;
 
 typedef struct s_minishell
 {

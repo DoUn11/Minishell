@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 21:44:53 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/24 11:03:51 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:46:38 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,11 @@ void	ms_set_signal(int sig_int, int sig_quit);
 
 int		ms_heredoc(t_minishell *info, t_redirect *tmp);
 void	ms_unlink_heredoc(t_minishell *info);
+
+int		ms_get_pipe(t_minishell *info);
+int		ms_get_fds(t_minishell *info);
+void	ms_wait_child(void);
+int		ms_get_redir_fd(t_minishell *info, t_redirect *redirect);
+int		ms_get_redirects(t_minishell *info, t_list *redirects, int idx);
 
 #endif

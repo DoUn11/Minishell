@@ -6,7 +6,7 @@
 #    By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 01:31:34 by doukim            #+#    #+#              #
-#    Updated: 2024/01/24 11:22:40 by chanspar         ###   ########.fr        #
+#    Updated: 2024/01/26 17:47:10 by chanspar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS	:= $(SRCDIR)builtins/ms_builtin_utils.c\
 	$(SRCDIR)executor/ms_heredoc.c \
 	$(SRCDIR)executor/ms_executor.c \
 	$(SRCDIR)executor/ms_executor_utils.c \
+	$(SRCDIR)executor/ms_make_temp.c \
 	$(SRCDIR)executor/ms_pathfinder.c \
 	$(SRCDIR)executor/ms_pathsplit.c \
 	$(SRCDIR)executor/ms_set_term_mode.c \

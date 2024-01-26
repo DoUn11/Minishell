@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:16:10 by chanspar          #+#    #+#             */
-/*   Updated: 2024/01/24 09:42:54 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/26 17:17:30 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,44 @@ char	*ms_append_char(char *str, char c)
 	return (ret);
 }
 
+int	ms_hdc_dollar(t_hdc *hdc, char **line, t_minishell *info)
+{
+	hdc->ret = ms_strjoin_f(hdc->ret, \
+		ms_strndup(*line + hdc->start, hdc->idx - hdc->start));
+	hdc->idx++;
+	hdc->var = ms_getvarname(*line, &(hdc->idx));
+	if (hdc->var == NULL)
+	{
+		hdc->ret = ms_strjoin_f(hdc->ret, ms_strdup("$"));
+		hdc->start = hdc->idx;
+		return (1);
+	}
+	hdc->start = hdc->idx + 1;
+	hdc->ret = ms_strjoin_f(hdc->ret, ms_getvardata(info, hdc->var));
+	free(hdc->var);
+	return (0);
+}
+
 char	*ms_hdc_convert(t_minishell *info, char *line)
 {
-	int		idx;
-	int		start;
-	char	*ret;
-	char	*var;
+	t_hdc	hdc;
 
-	ret = ms_strdup("");
-	start = 0;
-	idx = 0;
-	while (line[idx])
+	hdc.ret = ms_strdup("");
+	hdc.start = 0;
+	hdc.idx = 0;
+	while (line[hdc.idx])
 	{
-		if (line[idx] == '$')
+		if (line[hdc.idx] == '$')
 		{
-			ret = ms_strjoin_f(ret, ms_strndup(line + start, idx - start));
-			idx++;
-			var = ms_getvarname(line, &idx);
-			if (var == NULL)
-			{
-				ret = ms_strjoin_f(ret, ms_strdup("$"));
-				start = idx;
+			if (ms_hdc_dollar(&hdc, &line, info) == 1)
 				continue ;
-			}
-			start = idx + 1;
-			ret = ms_strjoin_f(ret, ms_getvardata(info, var));
-			free(var);
 		}
 		else
-			ret = ms_append_char(ret, line[idx]);
-		idx++;
+			hdc.ret = ms_append_char(hdc.ret, line[hdc.idx]);
+		hdc.idx++;
 	}
 	free(line);
-	return (ret);
+	return (hdc.ret);
 }
 
 void	input_stream(t_minishell *info, t_redirect	*tmp, int temp_fd)
